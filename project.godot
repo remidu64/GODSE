@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="GODSE"
+run/main_scene="uid://ddb5w80vql1j3"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameInfo="*res://autoload/Autoload-GameInfo.gd"
 
 [rendering]
 
