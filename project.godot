@@ -15,6 +15,10 @@ run/main_scene="uid://bjr8hlij73xti"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameInfo="*res://autoload/Autoload-GameInfo.gd"
+
 [input]
 
 forward={
@@ -40,10 +44,6 @@ right={
 run/main_scene="uid://ddb5w80vql1j3"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
-
-[autoload]
-
-GameInfo="*res://autoload/Autoload-GameInfo.gd"
 
 [rendering]
 
