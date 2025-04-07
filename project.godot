@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameInfo="*res://autoload/Autoload-GameInfo.gd"
 Global="*res://autoload/Autoload-Global.tscn"
+Options="*res://autoload/Autoload-Options.gd"
 
 [input]
 

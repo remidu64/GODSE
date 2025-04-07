@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://j416ksyocb8y"]
+
+[ext_resource type="Script" uid="uid://bwnp7vft1tmo5" path="res://scripts/optionsshit/OptionsMenu-Slider.gd" id="1_87heu"]
+
+[node name="OptionsMenu-Slider" type="HSlider"]
+offset_right = 256.0
+offset_bottom = 16.0
+script = ExtResource("1_87heu")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = -4.0
+offset_right = 568.0
+offset_bottom = 20.0
+text = "Text"

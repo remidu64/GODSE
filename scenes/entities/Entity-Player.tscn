@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://2t0235x02uih"]
+[gd_scene load_steps=5 format=3 uid="uid://2t0235x02uih"]
 
 [ext_resource type="Script" uid="uid://bmfga3wqtkk6i" path="res://scripts/entities/Entity-Player.gd" id="1_g13of"]
+[ext_resource type="PackedScene" uid="uid://2wdygwbi2mlj" path="res://scenes/substates/SubState-OptionsMenu.tscn" id="2_v1vfl"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2m2ha"]
 
@@ -23,3 +24,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera" type="Camera3D" parent="Head"]
 current = true
+
+[node name="OptionsHud" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="OptionsMenu" parent="OptionsHud" instance=ExtResource("2_v1vfl")]
