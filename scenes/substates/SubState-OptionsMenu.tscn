@@ -37,35 +37,52 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="FOV" parent="ActualOptions" instance=ExtResource("2_1m7gb")]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 192.0
-offset_right = 384.0
-offset_bottom = 208.0
+[node name="TabContainer" type="TabContainer" parent="ActualOptions"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 72.0
+offset_right = 1144.0
+offset_bottom = 640.0
+current_tab = 0
+
+[node name="Gameplay" type="TabBar" parent="ActualOptions/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="FOV" parent="ActualOptions/TabContainer/Gameplay" instance=ExtResource("2_1m7gb")]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 25.0
+offset_right = 312.0
+offset_bottom = 41.0
 min_value = 50.0
 max_value = 180.0
 value = 75.0
 Property = "FOV"
 
-[node name="Sensitivity" parent="ActualOptions" instance=ExtResource("2_1m7gb")]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 240.0
-offset_right = 384.0
-offset_bottom = 256.0
+[node name="Sensitivity" parent="ActualOptions/TabContainer/Gameplay" instance=ExtResource("2_1m7gb")]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 57.0
+offset_right = 312.0
+offset_bottom = 73.0
 min_value = 0.01
 max_value = 1.0
 step = 0.01
 value = 0.5
 Property = "Sensitivity"
 
-[node name="OptionsMenu-CheckBox" parent="ActualOptions" instance=ExtResource("3_2xwod")]
+[node name="Graphics" type="TabBar" parent="ActualOptions/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Shadows" parent="ActualOptions/TabContainer/Graphics" instance=ExtResource("3_2xwod")]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 280.0
-offset_right = 152.0
-offset_bottom = 304.0
+offset_left = 56.0
+offset_top = 25.0
+offset_right = 80.0
+offset_bottom = 49.0
 tooltip_text = "if on, real time shadows will, you know, do the real time shadow things
 
 fucks up performance, disabling it makes the game look like hot garbage and should probably be considered cheating since the game is basically full bright (until we add baked lighting)"
