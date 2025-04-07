@@ -3,7 +3,7 @@ extends CharacterBody3D
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera
 
-const SENSITIVITY = 0.005
+const SENSITIVITY = 0.0025
 const SPEED = 2.5
 const JUMP_VELOCITY = 4.5
 
