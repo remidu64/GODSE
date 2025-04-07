@@ -66,4 +66,7 @@ offset_left = 128.0
 offset_top = 280.0
 offset_right = 152.0
 offset_bottom = 304.0
+tooltip_text = "if on, real time shadows will, you know, do the real time shadow things
+
+fucks up performance, disabling it makes the game look like hot garbage and should probably be considered cheating since the game is basically full bright"
 Property = "Shadows"
