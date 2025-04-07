@@ -14,17 +14,30 @@ const JUMP_VELOCITY = 7
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
 # built in godot functions
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(str(name).to_int())
+
 func _ready():
+	if not is_multiplayer_authority():
+		return
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Options.changed.connect(reload_options)
+	camera.current = true
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
+	
 	if event is InputEventMouseMotion:
 		head.rotate_y(deg_to_rad(-event.relative.x * Options.sensitivity))
 		camera.rotate_x(deg_to_rad(-event.relative.y * Options.sensitivity))
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+	
 	if Input.is_action_just_pressed("pause"):
 		# might have to rewrite this actually
 		if !inOptions:
