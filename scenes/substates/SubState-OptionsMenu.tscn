@@ -14,9 +14,12 @@ grow_vertical = 2
 script = ExtResource("1_1axyh")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 0.47451)
 
 [node name="OptionsLabel" type="Label" parent="."]
@@ -24,65 +27,67 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_top = 31.0
-offset_right = 143.0
+offset_left = -960.0
+offset_right = 952.0
 offset_bottom = 76.0
 grow_horizontal = 2
 pivot_offset = Vector2(71.5, 22.5)
 theme_override_font_sizes/font_size = 32
 text = "options :)"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ActualOptions" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-
-[node name="TabContainer" type="TabContainer" parent="ActualOptions"]
-layout_mode = 2
-offset_left = 8.0
-offset_top = 72.0
-offset_right = 1912.0
-offset_bottom = 1072.0
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.06
+anchor_right = 0.99
+anchor_bottom = 0.98
 current_tab = 0
+clip_tabs = false
 
-[node name="Gameplay" type="TabBar" parent="ActualOptions/TabContainer"]
+[node name="Gameplay" type="TabBar" parent="TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="FOV" parent="ActualOptions/TabContainer/Gameplay" instance=ExtResource("2_1m7gb")]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Gameplay"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 22.0
+offset_right = 256.0
+offset_bottom = 622.0
+theme_override_constants/separation = 20
+
+[node name="FOV" parent="TabContainer/Gameplay/VBoxContainer" instance=ExtResource("2_1m7gb")]
 layout_mode = 2
-offset_left = 56.0
-offset_top = 25.0
-offset_right = 312.0
-offset_bottom = 41.0
 min_value = 50.0
 max_value = 180.0
 value = 75.0
 Property = "FOV"
 
-[node name="Sensitivity" parent="ActualOptions/TabContainer/Gameplay" instance=ExtResource("2_1m7gb")]
+[node name="Sensitivity" parent="TabContainer/Gameplay/VBoxContainer" instance=ExtResource("2_1m7gb")]
 layout_mode = 2
-offset_left = 56.0
-offset_top = 57.0
-offset_right = 312.0
-offset_bottom = 73.0
 min_value = 0.01
 max_value = 1.0
 step = 0.01
 value = 0.5
 Property = "Sensitivity"
 
-[node name="Graphics" type="TabBar" parent="ActualOptions/TabContainer"]
+[node name="Graphics" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Shadows" parent="ActualOptions/TabContainer/Graphics" instance=ExtResource("3_2xwod")]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics"]
 layout_mode = 0
-offset_left = 56.0
-offset_top = 25.0
-offset_right = 80.0
-offset_bottom = 49.0
+offset_top = 9.0
+offset_right = 184.0
+offset_bottom = 969.0
+theme_override_constants/separation = 20
+
+[node name="Shadows" parent="TabContainer/Graphics/VBoxContainer" instance=ExtResource("3_2xwod")]
+layout_mode = 2
 tooltip_text = "if on, real time shadows will, you know, do the real time shadow things
 
 fucks up performance, disabling it makes the game look like hot garbage and should probably be considered cheating since the game is basically full bright (until we add baked lighting)"
