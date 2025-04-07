@@ -10,7 +10,7 @@ var inOptions = false
 
 # Movement constants
 const ACCELERATION = 1.1
-const JUMP_VELOCITY = 7
+const JUMP_VELOCITY = 5.5
 const LATERAL_VELOCITY_COEFFICENT = 0.1 # How much does moving impact how high you jump
 const FRICTION = 0.35
 const AIR_FRICTION = 0.01
