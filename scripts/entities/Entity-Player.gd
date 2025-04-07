@@ -22,7 +22,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		head.rotate_y(deg_to_rad(-event.relative.x * Options.sensitivity))
 		camera.rotate_x(deg_to_rad(-event.relative.y * Options.sensitivity))
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
