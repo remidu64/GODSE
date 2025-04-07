@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GODSE"
-run/main_scene="uid://bjr8hlij73xti"
+run/main_scene="uid://ddb5w80vql1j3"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,13 @@ config/icon="res://icon.svg"
 GameInfo="*res://autoload/Autoload-GameInfo.gd"
 Global="*res://autoload/Autoload-Global.tscn"
 Options="*res://autoload/Autoload-Options.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/vsync/vsync_mode=0
 
 [input]
 
