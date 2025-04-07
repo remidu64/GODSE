@@ -9,7 +9,7 @@ extends CharacterBody3D
 var inOptions = false
 
 const SPEED = 2.5
-const JUMP_VELOCITY = 4.5
+const JUMP_VELOCITY = 7
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
 # built in godot functions
