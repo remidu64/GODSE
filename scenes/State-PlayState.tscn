@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://ddb5w80vql1j3"]
 
-[ext_resource type="Script" uid="uid://lheyoskvfp31" path="res://scripts/PlayState.gd" id="1_b0ega"]
-[ext_resource type="PackedScene" uid="uid://2t0235x02uih" path="res://scenes/entities/Player.tscn" id="2_xq65u"]
+[ext_resource type="Script" uid="uid://lheyoskvfp31" path="res://scripts/State-PlayState.gd" id="1_ta74y"]
+[ext_resource type="PackedScene" uid="uid://2t0235x02uih" path="res://scenes/entities/Entity-Player.tscn" id="2_i356m"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b0ega"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -27,7 +27,7 @@ points = PackedVector3Array(5.07937, 0.305556, 5.07738, -5.07937, -0.329365, -5.
 points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
 
 [node name="gayme" type="Node3D"]
-script = ExtResource("1_b0ega")
+script = ExtResource("1_ta74y")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l02w5")
@@ -53,5 +53,5 @@ mesh = SubResource("BoxMesh_ewrdw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_xq65u")
 
-[node name="Player" parent="." instance=ExtResource("2_xq65u")]
+[node name="Player" parent="." instance=ExtResource("2_i356m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.50814, 0.305556, 1.33427)
