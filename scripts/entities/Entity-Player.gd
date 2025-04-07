@@ -8,8 +8,12 @@ extends CharacterBody3D
 
 var inOptions = false
 
-const SPEED = 2.5
+# Movement constants
+const ACCELERATION = 1.1
 const JUMP_VELOCITY = 7
+const LATERAL_VELOCITY_COEFFICENT = 0.1 # How much does moving impact how high you jump
+const FRICTION = 0.35
+const AIR_FRICTION = 0.01
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
 # built in godot functions
@@ -52,25 +56,34 @@ func _physics_process(delta: float) -> void:
 			inOptions = false
 	
 	# Add the gravity.
+	# And also handle air friction and floor friction
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		velocity.x *= 1-AIR_FRICTION
+		velocity.z *= 1-AIR_FRICTION
+	else:
+		velocity.x *= 1-FRICTION
+		velocity.z *= 1-FRICTION
+		
+	# Get player movement vector
+	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
+	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if check_if_can_move():
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
-		
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
-		var input_dir := Input.get_vector("left", "right", "forward", "backwards")
-		var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		if direction:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			velocity.z = move_toward(velocity.z, 0, SPEED)
-		
+			velocity.y = JUMP_VELOCITY * (1 + sqrt(velocity.x**2 + velocity.y**2)*LATERAL_VELOCITY_COEFFICENT) # You jump a bit higher when you move faster
+			
+		# Change player velocity depending on their acceleration and their movement vector
+		if direction and is_on_floor():
+			velocity.x += ACCELERATION * direction.x
+			velocity.z += ACCELERATION * direction.z
+		# Trying to move in the air is slower than on the ground
+		elif direction:
+			velocity.x += ACCELERATION * direction.x * AIR_FRICTION * 3
+			velocity.z += ACCELERATION * direction.z * AIR_FRICTION * 3
+			
+	# p h y s i c s
 	move_and_slide()
 
 # custom functions
