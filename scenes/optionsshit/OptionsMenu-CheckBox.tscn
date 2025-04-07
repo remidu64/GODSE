@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d02c5eh6ol7hj"]
+
+[ext_resource type="Script" uid="uid://k8dhu3avypkv" path="res://scripts/optionsshit/OptionsMenu-CheckBox.gd" id="1_f4pfg"]
+
+[node name="OptionsMenu-CheckBox" type="CheckBox"]
+offset_right = 24.0
+offset_bottom = 24.0
+script = ExtResource("1_f4pfg")

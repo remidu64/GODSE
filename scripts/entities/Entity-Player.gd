@@ -26,6 +26,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
+		# might have to rewrite this actually
 		if !inOptions:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			optionsHud.visible = true
@@ -68,4 +69,4 @@ func check_if_can_move():
 	return true
 
 func reload_options():
-	camera.fov = Options.get_option("FOV")
+	camera.fov = Options.fov

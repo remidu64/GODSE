@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://2wdygwbi2mlj"]
+[gd_scene load_steps=4 format=3 uid="uid://2wdygwbi2mlj"]
 
 [ext_resource type="Script" uid="uid://cfvs8rjqs5hgp" path="res://scripts/substates/SubState-OptionsMenu.gd" id="1_1axyh"]
 [ext_resource type="PackedScene" uid="uid://j416ksyocb8y" path="res://scenes/optionsshit/OptionsMenu-Slider.tscn" id="2_1m7gb"]
+[ext_resource type="PackedScene" uid="uid://d02c5eh6ol7hj" path="res://scenes/optionsshit/OptionsMenu-CheckBox.tscn" id="3_2xwod"]
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -58,3 +59,11 @@ max_value = 1.0
 step = 0.01
 value = 0.5
 Property = "Sensitivity"
+
+[node name="OptionsMenu-CheckBox" parent="ActualOptions" instance=ExtResource("3_2xwod")]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 280.0
+offset_right = 152.0
+offset_bottom = 304.0
+Property = "Shadows"
