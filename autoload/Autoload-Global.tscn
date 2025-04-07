@@ -6,6 +6,7 @@
 script = ExtResource("1_f6n0l")
 
 [node name="DebugLabel" type="Label" parent="."]
+z_index = 10
 offset_right = 40.0
 offset_bottom = 23.0
 text = "FPS:"
