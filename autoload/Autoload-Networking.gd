@@ -4,6 +4,7 @@ signal add_player_request(id)
 signal remove_player_request(id)
 
 var enetPeer = ENetMultiplayerPeer.new()
+var ip = "localhost"
 
 const PORT = 19132
 
@@ -16,7 +17,7 @@ func host_server():
 	add_player(multiplayer.get_unique_id())
 
 func join_server():
-	enetPeer.create_client("localhost", PORT)
+	enetPeer.create_client(ip, PORT)
 	multiplayer.multiplayer_peer = enetPeer
 
 func remove_player(id):

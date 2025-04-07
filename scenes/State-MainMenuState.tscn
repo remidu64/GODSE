@@ -63,5 +63,16 @@ text = "host server"
 layout_mode = 2
 text = "options"
 
+[node name="username" type="TextEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+placeholder_text = "name (not implemented yet)"
+
+[node name="serverIP" type="TextEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "localhost"
+placeholder_text = "server ip"
+
 [connection signal="pressed" from="VBoxContainer/join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="VBoxContainer/host" to="." method="_on_host_pressed"]
