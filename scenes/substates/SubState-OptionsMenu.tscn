@@ -41,8 +41,8 @@ offset_bottom = 1080.0
 layout_mode = 2
 offset_left = 8.0
 offset_top = 72.0
-offset_right = 1144.0
-offset_bottom = 640.0
+offset_right = 1912.0
+offset_bottom = 1072.0
 current_tab = 0
 
 [node name="Gameplay" type="TabBar" parent="ActualOptions/TabContainer"]
