@@ -129,8 +129,6 @@ func shoot():
 @rpc("any_peer")
 func damage_flag():
 	print("called damaged")
-	damaged = true
-	print(damaged)
 
 func get_damaged(amt:int):
 	print("hit ", amt)
