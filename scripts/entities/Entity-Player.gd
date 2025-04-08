@@ -82,13 +82,11 @@ func _physics_process(delta: float) -> void:
 	# Get player movement vector
 	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if Input.is_action_just_pressed("run"): # If the player starts running, increase the FOV like what happens in Minecraft
-		camera.fov *= 1.1
-		
-	if Input.is_action_pressed("run"): # Too lazy to propely implement running, so just multiply the direction vector by the running multiplier and call it a day
-		direction *= RUNNING_MULTIPLIER
+	if Input.is_action_pressed("run"): 
+		direction *= RUNNING_MULTIPLIER # Too lazy to propely implement running, so just multiply the direction vector by the running multiplier and call it a day
+		camera.fov = lerp(camera.fov, float(Options.fov + 10), 7.0 * delta) # If the player starts running, increase the FOV like what happens in Minecraft
 	else:
-		reload_options()
+		camera.fov = lerp(camera.fov, float(Options.fov), 7.0 * delta) # Make it go back to normal once the player is no longer running
 	
 	if check_if_can_move():
 		# Handle jump.
