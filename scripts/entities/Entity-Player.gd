@@ -9,16 +9,17 @@ extends CharacterBody3D
 
 var inOptions = false
 
-var health = 100
+var health: int = 100
+var damaged: bool = false
 
 # Movement constants
-const ACCELERATION = 1.1
-const RUNNING_MULTIPLIER = 1.5
-const JUMP_VELOCITY = 5.5
-const JUMP_SPEED_MULTIPLIER = 1.35
-const LATERAL_VELOCITY_COEFFICENT = 0.1 # How much does moving impact how high you jump
-const FRICTION = 0.35
-const AIR_FRICTION = 0.01
+const ACCELERATION: float = 1.1
+const RUNNING_MULTIPLIER: float = 1.5
+const JUMP_VELOCITY: float = 5.5
+const JUMP_SPEED_MULTIPLIER: float = 1.35
+const LATERAL_VELOCITY_COEFFICENT: float = 0.1 # How much does moving impact how high you jump
+const FRICTION: float = 0.35
+const AIR_FRICTION: float = 0.01
 
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
@@ -28,9 +29,10 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
-	print(position)
 	if not is_multiplayer_authority():
 		return
+		
+	print(position)
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Options.changed.connect(reload_options)
@@ -64,14 +66,12 @@ func _unhandled_input(event: InputEvent) -> void:
 				$Sounds/hitmarker.play()
 				$HUD/HitMarker.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
 				var hitPlayer = raycast.get_collider()
-				get_damaged.rpc_id(hitPlayer.get_multiplayer_authority(), 50)
+				damage_flag().rpc_id(hitPlayer.get_multiplayer_authority())
 
 func _physics_process(delta: float) -> void:
 	$Head/Camera/GunPos/Gun.position = lerp($Head/Camera/GunPos/Gun.position, Vector3(0, 0, 0), 14.0 * delta)
-	
 	if not is_multiplayer_authority():
 		return
-	
 	# WARNING: put all gameplay related shit under this line
 	
 	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
@@ -122,6 +122,10 @@ func _physics_process(delta: float) -> void:
 		elif direction:
 			velocity.x += ACCELERATION * direction.x * 0.05
 			velocity.z += ACCELERATION * direction.z * 0.05
+			
+	if damaged:
+		get_damaged(50)
+		damaged = false
 	
 	# p h y s i c s
 	move_and_slide()
@@ -133,12 +137,16 @@ func shoot():
 	$Head/Camera/GunPos/Gun.position.z = 1.0
 
 @rpc("any_peer")
+func damage_flag():
+	damaged = true
+
 func get_damaged(amt:int):
 	print("hit ", amt)
 	health -= amt
 	print(health)
 	if health <= 0:
 		# TODO: fix the position resetting because for some reason it doesnt work
+		print(position) # why the fuck do u return the SHOOTER's position and not the TARGET's position
 		position = Vector3(randf_range(-10, 10), 1, randi_range(-10, 10))
 		print("dead")
 		health = 100

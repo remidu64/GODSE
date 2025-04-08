@@ -21,3 +21,4 @@ func get_player_stats():
 		return
 	
 	DebugLabel.text += "\nPlayer Velocity: %s" % Player.velocity
+	DebugLabel.text += "\nPlayer HP: %s" % Player.health
