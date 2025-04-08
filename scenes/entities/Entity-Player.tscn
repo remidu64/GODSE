@@ -50,9 +50,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.53, -0.41, -1.26)
 [node name="Gun" type="MeshInstance3D" parent="Head/Camera/GunPos"]
 mesh = SubResource("BoxMesh_v1vfl")
 
-[node name="RayCast" type="RayCast3D" parent="Head/Camera"]
-target_position = Vector3(0, 0, -50)
-
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15

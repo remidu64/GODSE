@@ -10,7 +10,6 @@ extends CharacterBody3D
 var inOptions = false
 
 var health: int = 100
-var damaged: bool = false
 
 # Movement constants
 const ACCELERATION: float = 1.1
@@ -31,8 +30,8 @@ func _enter_tree() -> void:
 func _ready():
 	if not is_multiplayer_authority():
 		return
-		
-	print(position)
+	
+	print(str(name).to_int())
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Options.changed.connect(reload_options)
@@ -61,23 +60,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	# shooting
 	if Input.is_action_just_pressed("shoot"):
 		shoot.rpc()
-		if raycast.is_colliding():
-			if raycast.get_collider() != self and raycast.get_collider() is CharacterBody3D:
-				$Sounds/hitmarker.play()
-				$HUD/HitMarker.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
-				var hitPlayer = raycast.get_collider()
-				damage_flag.rpc_id(hitPlayer.get_multiplayer_authority())
 
 func _physics_process(delta: float) -> void:
 	$Head/Camera/GunPos/Gun.position = lerp($Head/Camera/GunPos/Gun.position, Vector3(0, 0, 0), 14.0 * delta)
 	if not is_multiplayer_authority():
 		return
 	# WARNING: put all gameplay related shit under this line
-	
-	if damaged == true:
-		print("damaged is true")
-		get_damaged(50)
-		damaged = false
 	
 	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
 	
