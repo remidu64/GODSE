@@ -6,7 +6,6 @@ signal play_state_loaded
 var Player = null
 
 @onready var DebugLabel: Label = $DebugLabel
-@onready var DebugLabel2: Label = $DebugLabel2
 
 # built in functions
 
