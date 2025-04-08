@@ -66,13 +66,18 @@ func _unhandled_input(event: InputEvent) -> void:
 				$Sounds/hitmarker.play()
 				$HUD/HitMarker.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
 				var hitPlayer = raycast.get_collider()
-				damage_flag().rpc_id(hitPlayer.get_multiplayer_authority())
+				damage_flag.rpc_id(hitPlayer.get_multiplayer_authority())
 
 func _physics_process(delta: float) -> void:
 	$Head/Camera/GunPos/Gun.position = lerp($Head/Camera/GunPos/Gun.position, Vector3(0, 0, 0), 14.0 * delta)
 	if not is_multiplayer_authority():
 		return
 	# WARNING: put all gameplay related shit under this line
+	
+	if damaged == true:
+		print("damaged is true")
+		get_damaged(50)
+		damaged = false
 	
 	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
 	
@@ -123,9 +128,6 @@ func _physics_process(delta: float) -> void:
 			velocity.x += ACCELERATION * direction.x * 0.05
 			velocity.z += ACCELERATION * direction.z * 0.05
 			
-	if damaged:
-		get_damaged(50)
-		damaged = false
 	
 	# p h y s i c s
 	move_and_slide()
@@ -138,7 +140,9 @@ func shoot():
 
 @rpc("any_peer")
 func damage_flag():
+	print("called damaged")
 	damaged = true
+	print(damaged)
 
 func get_damaged(amt:int):
 	print("hit ", amt)
