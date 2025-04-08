@@ -1,12 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://2t0235x02uih"]
+[gd_scene load_steps=10 format=3 uid="uid://2t0235x02uih"]
 
 [ext_resource type="Script" uid="uid://bmfga3wqtkk6i" path="res://scripts/entities/Entity-Player.gd" id="1_g13of"]
+[ext_resource type="Texture2D" uid="uid://c5kv8sb3o1uvk" path="res://assets/sprites/hud/crosshairs/hitmarker.png" id="2_1bx53"]
 [ext_resource type="PackedScene" uid="uid://2wdygwbi2mlj" path="res://scenes/substates/SubState-OptionsMenu.tscn" id="2_v1vfl"]
+[ext_resource type="Texture2D" uid="uid://dyfsrqesqm46g" path="res://assets/sprites/hud/crosshairs/crosshair1.png" id="2_ybmsl"]
+[ext_resource type="AudioStream" uid="uid://c5d05540i64hx" path="res://assets/sounds/hitmarker.ogg" id="5_4x535"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2m2ha"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g13of"]
 points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
+
+[sub_resource type="BoxMesh" id="BoxMesh_v1vfl"]
+size = Vector3(0.1, 0.1, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v1vfl"]
 properties/0/path = NodePath(".:position")
@@ -38,6 +44,56 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera" type="Camera3D" parent="Head"]
 
+[node name="GunPos" type="Node3D" parent="Head/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.53, -0.41, -1.26)
+
+[node name="Gun" type="MeshInstance3D" parent="Head/Camera/GunPos"]
+mesh = SubResource("BoxMesh_v1vfl")
+
+[node name="RayCast" type="RayCast3D" parent="Head/Camera"]
+target_position = Vector3(0, 0, -50)
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HitMarker" type="TextureRect" parent="HUD"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1bx53")
+
+[node name="Crosshair" type="TextureRect" parent="HUD"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_ybmsl")
+
 [node name="OptionsHud" type="CanvasLayer" parent="."]
 visible = false
 
@@ -45,3 +101,10 @@ visible = false
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_v1vfl")
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="gunshot" type="AudioStreamPlayer3D" parent="Sounds"]
+
+[node name="hitmarker" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_4x535")

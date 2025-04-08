@@ -2,11 +2,14 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera
+@onready var raycast: RayCast3D = $Head/Camera/RayCast
 
 @onready var optionsHud: CanvasLayer = $OptionsHud
 @onready var optionsMenu: Control = $OptionsHud/OptionsMenu
 
 var inOptions = false
+
+var health = 100
 
 # Movement constants
 const ACCELERATION = 1.1
@@ -25,6 +28,7 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
+	print(position)
 	if not is_multiplayer_authority():
 		return
 	
@@ -51,10 +55,26 @@ func _unhandled_input(event: InputEvent) -> void:
 		head.rotate_y(deg_to_rad(-event.relative.x * Options.sensitivity))
 		camera.rotate_x(deg_to_rad(-event.relative.y * Options.sensitivity))
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+	
+	# shooting
+	if Input.is_action_just_pressed("shoot"):
+		shoot.rpc()
+		if raycast.is_colliding():
+			if raycast.get_collider() != self and raycast.get_collider() is CharacterBody3D:
+				$Sounds/hitmarker.play()
+				$HUD/HitMarker.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+				var hitPlayer = raycast.get_collider()
+				get_damaged.rpc_id(hitPlayer.get_multiplayer_authority(), 50)
 
 func _physics_process(delta: float) -> void:
+	$Head/Camera/GunPos/Gun.position = lerp($Head/Camera/GunPos/Gun.position, Vector3(0, 0, 0), 14.0 * delta)
+	
 	if not is_multiplayer_authority():
 		return
+	
+	# WARNING: put all gameplay related shit under this line
+	
+	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
 	
 	if Input.is_action_just_pressed("pause"):
 		# might have to rewrite this actually
@@ -102,11 +122,26 @@ func _physics_process(delta: float) -> void:
 		elif direction:
 			velocity.x += ACCELERATION * direction.x * 0.05
 			velocity.z += ACCELERATION * direction.z * 0.05
-			
+	
 	# p h y s i c s
 	move_and_slide()
 
 # custom functions
+
+@rpc("call_local")
+func shoot():
+	$Head/Camera/GunPos/Gun.position.z = 1.0
+
+@rpc("any_peer")
+func get_damaged(amt:int):
+	print("hit ", amt)
+	health -= amt
+	print(health)
+	if health <= 0:
+		# TODO: fix the position resetting because for some reason it doesnt work
+		position = Vector3(randf_range(-10, 10), 1, randi_range(-10, 10))
+		print("dead")
+		health = 100
 
 func check_if_can_move():
 	if inOptions:
