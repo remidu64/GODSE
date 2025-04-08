@@ -31,6 +31,17 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Options.changed.connect(reload_options)
 	camera.current = true
+	
+	# set the player variable in Global (Autoload-Global.gd)
+	Global.Player = self
+
+func _exit_tree() -> void:
+	if not is_multiplayer_authority():
+		return
+	
+	# reset the player variable in Global (Autoload-Global.gd) once the player leaves the game
+	# (yeah its useless rn)
+	Global.Player = null
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
