@@ -10,10 +10,13 @@ var inOptions = false
 
 # Movement constants
 const ACCELERATION = 1.1
+const RUNNING_MULTIPLIER = 1.5
 const JUMP_VELOCITY = 5.5
-const LATERAL_VELOCITY_COEFFICENT = 0.1 # How much does moving impact how high you jump
+const JUMP_SPEED_MULTIPLIER = 1.35
+const LATERAL_VELOCITY_COEFFICENT = 0.15 # How much does moving impact how high you jump
 const FRICTION = 0.35
-const AIR_FRICTION = 0.01
+const AIR_FRICTION = 0.0
+
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
 # built in godot functions
@@ -68,20 +71,25 @@ func _physics_process(delta: float) -> void:
 	# Get player movement vector
 	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if Input.is_action_just_pressed("run"): # If the player starts running, increase the FOV like what happens in Minecraft
+		camera.fov *= 1.1
+		
+	if Input.is_action_pressed("run"): # Too lazy to propely implement running, so just multiply the direction vector by the running multiplier and call it a day
+		direction *= RUNNING_MULTIPLIER
+	else:
+		reload_options()
 	
 	if check_if_can_move():
 		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
+		if Input.is_action_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY * (1 + sqrt(velocity.x**2 + velocity.y**2)*LATERAL_VELOCITY_COEFFICENT) # You jump a bit higher when you move faster
+			velocity.x *= JUMP_SPEED_MULTIPLIER
+			velocity.z *= JUMP_SPEED_MULTIPLIER
 			
 		# Change player velocity depending on their acceleration and their movement vector
 		if direction and is_on_floor():
 			velocity.x += ACCELERATION * direction.x
 			velocity.z += ACCELERATION * direction.z
-		# Trying to move in the air is slower than on the ground
-		elif direction:
-			velocity.x += ACCELERATION * direction.x * AIR_FRICTION * 3
-			velocity.z += ACCELERATION * direction.z * AIR_FRICTION * 3
 			
 	# p h y s i c s
 	move_and_slide()
