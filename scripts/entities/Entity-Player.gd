@@ -17,7 +17,7 @@ const ACCELERATION: float = 1.1
 const RUNNING_MULTIPLIER: float = 1.5
 const JUMP_VELOCITY: float = 5.5
 const JUMP_SPEED_MULTIPLIER: float = 1.35
-const LATERAL_VELOCITY_COEFFICENT: float = 0.1 # How much does moving impact how high you jump
+const LATERAL_VELOCITY_COEFFICENT: float = 0.05 # How much does moving impact how high you jump
 const FRICTION: float = 0.35
 const AIR_FRICTION: float = 0.01
 
@@ -111,7 +111,7 @@ func _physics_process(delta: float) -> void:
 	if check_if_can_move():
 		# Handle jump.
 		if Input.is_action_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY * (1 + sqrt(velocity.x**2 + velocity.y**2)*LATERAL_VELOCITY_COEFFICENT) # You jump a bit higher when you move faster
+			velocity.y = JUMP_VELOCITY * (1 + sqrt(velocity.x**2 + velocity.z**2)*LATERAL_VELOCITY_COEFFICENT) # You jump a bit higher when you move faster
 			velocity.x *= JUMP_SPEED_MULTIPLIER
 			velocity.z *= JUMP_SPEED_MULTIPLIER
 			
