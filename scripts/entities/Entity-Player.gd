@@ -137,6 +137,8 @@ func shoot():
 	gun.position.x += randf_range(-0.1, 0.1)
 	gun.rotation.x += randf_range(TAU/16, TAU/12)
 	gun.rotation.y += randf_range(-TAU/26, TAU/26)
+	
+	# TODO: fix player recoil to make it like the recoil in CODSE
 	velocity.y -= remap(camera.rotation.x, PI/2, -PI/2, 1, -1)
 	velocity.x -= sin(head.rotation.y)
 	velocity.z -= cos(head.rotation.y)
