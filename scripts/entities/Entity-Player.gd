@@ -2,7 +2,9 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera
-@onready var raycast: RayCast3D = $Head/Camera/RayCast
+@onready var gunpos: Node3D = $Head/Camera/GunPos
+@onready var gun: Node3D = $Head/Camera/GunPos/Gun
+@onready var raycast: RayCast3D = $Head/Camera/RayCast3D
 
 @onready var optionsHud: CanvasLayer = $OptionsHud
 @onready var optionsMenu: Control = $OptionsHud/OptionsMenu
@@ -37,6 +39,9 @@ func _ready():
 	Options.changed.connect(reload_options)
 	camera.current = true
 	
+	raycast.position = camera.position
+	raycast.rotation = camera.rotation
+	
 	# set the player variable in Global (Autoload-Global.gd)
 	Global.Player = self
 
@@ -62,11 +67,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		shoot.rpc()
 
 func _physics_process(delta: float) -> void:
-	$Head/Camera/GunPos/Gun.position = lerp($Head/Camera/GunPos/Gun.position, Vector3(0, 0, 0), 14.0 * delta)
+	gun.position = lerp(gun.position, Vector3(0, 0, 0), 10.0 * delta)
+	gun.rotation = lerp(gun.rotation, Vector3(0, 0, 0), 10.0 * delta)
 	if not is_multiplayer_authority():
 		return
 	# WARNING: put all gameplay related shit under this line
 	
+	if raycast.is_colliding():
+		gunpos.look_at(raycast.get_collision_point())
+		
 	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
 	
 	if Input.is_action_just_pressed("pause"):
@@ -124,7 +133,13 @@ func _physics_process(delta: float) -> void:
 
 @rpc("call_local")
 func shoot():
-	$Head/Camera/GunPos/Gun.position.z = 1.0
+	gun.position.z += randf_range(0.25, 0.75)
+	gun.position.x += randf_range(-0.1, 0.1)
+	gun.rotation.x += randf_range(TAU/16, TAU/12)
+	gun.rotation.y += randf_range(-TAU/26, TAU/26)
+	velocity.y -= remap(camera.rotation.x, PI/2, -PI/2, 1, -1)
+	velocity.x -= sin(head.rotation.y)
+	velocity.z -= cos(head.rotation.y)
 
 @rpc("any_peer")
 func damage_flag():

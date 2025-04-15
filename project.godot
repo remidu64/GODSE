@@ -80,10 +80,17 @@ shoot={
 ]
 }
 
+[layer_names]
+
+3d_render/layer_1="game"
+3d_render/layer_2="hud"
+
 [physics]
 
+3d/run_on_separate_thread=true
 3d/physics_engine="Jolt Physics"
 3d/default_gravity=20.0
+common/physics_interpolation=true
 
 [rendering]
 
