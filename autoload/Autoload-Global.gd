@@ -22,5 +22,5 @@ func get_player_stats():
 	
 	DebugLabel.text += "\nPlayer Velocity: %s" % Player.velocity
 	DebugLabel.text += "\nPlayer HP: %s" % Player.health
-	DebugLabel.text += "\nPlayer rotation y: %s" % Player.head.rotation.y
-	DebugLabel.text += "\nPlayer rotation x: %s" % Player.camera.rotation.x
+	DebugLabel.text += "\nPlayer rotation y: %s" % Player.raycast.global_rotation.y
+	DebugLabel.text += "\nPlayer rotation x: %s" % Player.raycast.global_rotation.x

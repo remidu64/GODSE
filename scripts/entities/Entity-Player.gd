@@ -21,6 +21,7 @@ const JUMP_SPEED_MULTIPLIER: float = 1.35
 const LATERAL_VELOCITY_COEFFICENT: float = 0.05 # How much does moving impact how high you jump
 const FRICTION: float = 0.35
 const AIR_FRICTION: float = 0.01
+const RECOIL: float = 5
 
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
@@ -75,6 +76,8 @@ func _physics_process(delta: float) -> void:
 	
 	if raycast.is_colliding():
 		gunpos.look_at(raycast.get_collision_point())
+	else:
+		gunpos.rotation = Vector3(0, 0, 0)
 		
 	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
 	
@@ -133,15 +136,14 @@ func _physics_process(delta: float) -> void:
 
 @rpc("call_local")
 func shoot():
+	var coeff_y = remap(raycast.global_rotation.x, -PI/2, PI/2, 1, -1)
 	gun.position.z += randf_range(0.25, 0.75)
 	gun.position.x += randf_range(-0.1, 0.1)
 	gun.rotation.x += randf_range(TAU/16, TAU/12)
-	gun.rotation.y += randf_range(-TAU/26, TAU/26)
-	
-	# TODO: fix player recoil to make it like the recoil in CODSE
-	velocity.y -= remap(camera.rotation.x, PI/2, -PI/2, 1, -1)
-	velocity.x -= sin(head.rotation.y)
-	velocity.z -= cos(head.rotation.y)
+	gun.rotation.y += randf_range(-TAU/22, TAU/22)
+	velocity.y += coeff_y * RECOIL
+	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * RECOIL
+	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
 
 @rpc("any_peer")
 func damage_flag():
