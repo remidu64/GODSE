@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df23up4fo7hok"
-path.s3tc="res://.godot/imported/vanguard_0.png-33a711ad06893ddc840fe45aa7193d6e.s3tc.ctex"
+uid="uid://jwpflfy0v40r"
+path.s3tc="res://.godot/imported/asphalt-1600-mm-architextures.jpg-b8f9e09ab19367e17ffc781a9479798d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "08bc43ae6eff3fb677a0e43328e348d3"
-}
 
 [deps]
 
-source_file="res://vanguard_0.png"
-dest_files=["res://.godot/imported/vanguard_0.png-33a711ad06893ddc840fe45aa7193d6e.s3tc.ctex"]
+source_file="res://assets/sprites/terrain/asphalt-1600-mm-architextures.jpg"
+dest_files=["res://.godot/imported/asphalt-1600-mm-architextures.jpg-b8f9e09ab19367e17ffc781a9479798d.s3tc.ctex"]
 
 [params]
 

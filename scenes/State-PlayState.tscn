@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://ddb5w80vql1j3"]
 
 [ext_resource type="Script" uid="uid://lheyoskvfp31" path="res://scripts/State-PlayState.gd" id="1_ta74y"]
-[ext_resource type="Texture2D" uid="uid://jwpflfy0v40r" path="res://asphalt-1600-mm-architextures.jpg" id="2_ta74y"]
+[ext_resource type="Texture2D" uid="uid://jwpflfy0v40r" path="res://assets/sprites/terrain/asphalt-1600-mm-architextures.jpg" id="2_ta74y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b0ega"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -43,7 +43,7 @@ script = ExtResource("1_ta74y")
 environment = SubResource("Environment_l02w5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 12.4489, 0)
 shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

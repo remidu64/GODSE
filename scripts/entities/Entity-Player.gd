@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+signal shooting
+
+
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera
 @onready var gunpos: Node3D = $Head/Camera/GunPos
@@ -21,7 +24,7 @@ const JUMP_SPEED_MULTIPLIER: float = 1.35
 const LATERAL_VELOCITY_COEFFICENT: float = 0.05 # How much does moving impact how high you jump
 const FRICTION: float = 0.35
 const AIR_FRICTION: float = 0.01
-const RECOIL: float = 5
+const RECOIL: float = 3
 
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
@@ -33,6 +36,8 @@ func _enter_tree() -> void:
 func _ready():
 	if not is_multiplayer_authority():
 		return
+	
+	add_to_group("players")
 	
 	print(str(name).to_int())
 	
@@ -70,14 +75,14 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	gun.position = lerp(gun.position, Vector3(0, 0, 0), 10.0 * delta)
 	gun.rotation = lerp(gun.rotation, Vector3(0, 0, 0), 10.0 * delta)
-	if not is_multiplayer_authority():
-		return
-	# WARNING: put all gameplay related shit under this line
-	
 	if raycast.is_colliding():
 		gunpos.look_at(raycast.get_collision_point())
 	else:
 		gunpos.rotation = Vector3(0, 0, 0)
+	if not is_multiplayer_authority():
+		return
+	# WARNING: put all gameplay related shit under this line
+	
 		
 	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
 	
@@ -128,6 +133,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x += ACCELERATION * direction.x * 0.05
 			velocity.z += ACCELERATION * direction.z * 0.05
 			
+			
 	
 	# p h y s i c s
 	move_and_slide()
@@ -141,16 +147,18 @@ func shoot():
 	gun.position.x += randf_range(-0.1, 0.1)
 	gun.rotation.x += randf_range(TAU/16, TAU/12)
 	gun.rotation.y += randf_range(-TAU/22, TAU/22)
-	velocity.y += coeff_y * RECOIL
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * RECOIL
+	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
+	shooting.emit()
+	
 
 @rpc("any_peer")
 func damage_flag():
 	print("called damaged")
 
 func get_damaged(amt:int):
-	print("hit ", amt)
+	print("hit ", amt)		
 	health -= amt
 	print(health)
 	if health <= 0:

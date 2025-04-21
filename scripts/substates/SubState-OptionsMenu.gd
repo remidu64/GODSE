@@ -4,6 +4,7 @@ extends Control
 
 @export var inGame:bool = false
 
+
 func exit_menu():
 	for i in tab_container.get_children():
 		for u in i.get_children():

@@ -10,17 +10,10 @@ var Player = null
 # built in functions
 
 func _process(delta):
-	DebugLabel.text = "FPS: %s" % Engine.get_frames_per_second()
-	
 	get_player_stats()
 
 # custom functions
-
 func get_player_stats():
 	if Player == null:
 		return
-	
-	DebugLabel.text += "\nPlayer Velocity: %s" % Player.velocity
-	DebugLabel.text += "\nPlayer HP: %s" % Player.health
-	DebugLabel.text += "\nPlayer rotation y: %s" % Player.raycast.global_rotation.y
-	DebugLabel.text += "\nPlayer rotation x: %s" % Player.raycast.global_rotation.x
+	DebugLabel.text = "FPS: %s\nPlayer Velocity: %s\nPlayer HP: %s\nPlayer rotation y: %s\nPlayer rotation x: %s" % [Engine.get_frames_per_second(), Player.velocity, Player.health, Player.raycast.global_rotation.y, Player.raycast.global_rotation.x]

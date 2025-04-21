@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dl82fwhda5pcy"
-path="res://.godot/imported/vanguard.glb-bb38485fc3ce70bb7dd2e42044392cef.scn"
+path="res://.godot/imported/vanguard.glb-d9021d1d9545cc1b0c12a9b6e8e2baeb.scn"
 
 [deps]
 
-source_file="res://vanguard.glb"
-dest_files=["res://.godot/imported/vanguard.glb-bb38485fc3ce70bb7dd2e42044392cef.scn"]
+source_file="res://assets/model/gun/vanguard/vanguard.glb"
+dest_files=["res://.godot/imported/vanguard.glb-d9021d1d9545cc1b0c12a9b6e8e2baeb.scn"]
 
 [params]
 

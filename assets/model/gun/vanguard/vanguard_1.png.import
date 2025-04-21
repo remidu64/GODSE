@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jwpflfy0v40r"
-path.s3tc="res://.godot/imported/asphalt-1600-mm-architextures.jpg-6839e5c314bd8dbfd00c16f7ea439d47.s3tc.ctex"
+uid="uid://bk186b0ds4vqp"
+path.s3tc="res://.godot/imported/vanguard_1.png-b153a10857b524ddceeb155f63fd41e5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "36caca2ae17e1a1e1cf123b2fa927fa8"
+}
 
 [deps]
 
-source_file="res://asphalt-1600-mm-architextures.jpg"
-dest_files=["res://.godot/imported/asphalt-1600-mm-architextures.jpg-6839e5c314bd8dbfd00c16f7ea439d47.s3tc.ctex"]
+source_file="res://assets/model/gun/vanguard/vanguard_1.png"
+dest_files=["res://.godot/imported/vanguard_1.png-b153a10857b524ddceeb155f63fd41e5.s3tc.ctex"]
 
 [params]
 

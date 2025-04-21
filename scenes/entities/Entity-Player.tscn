@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bmfga3wqtkk6i" path="res://scripts/entities/Entity-Player.gd" id="1_g13of"]
 [ext_resource type="Texture2D" uid="uid://c5kv8sb3o1uvk" path="res://assets/sprites/hud/crosshairs/hitmarker.png" id="2_1bx53"]
-[ext_resource type="PackedScene" uid="uid://dl82fwhda5pcy" path="res://vanguard.glb" id="2_opunm"]
+[ext_resource type="PackedScene" uid="uid://dl82fwhda5pcy" path="res://assets/model/gun/vanguard/vanguard.glb" id="2_opunm"]
 [ext_resource type="PackedScene" uid="uid://2wdygwbi2mlj" path="res://scenes/substates/SubState-OptionsMenu.tscn" id="2_v1vfl"]
 [ext_resource type="Texture2D" uid="uid://dyfsrqesqm46g" path="res://assets/sprites/hud/crosshairs/crosshair1.png" id="2_ybmsl"]
 [ext_resource type="AudioStream" uid="uid://c5d05540i64hx" path="res://assets/sounds/hitmarker.ogg" id="5_4x535"]
@@ -44,7 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 cull_mask = 1048571
 
 [node name="GunPos" type="Node3D" parent="Head/Camera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.639311, -0.346469, -1.24921)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.590525, -0.336789, -0.83307)
 
 [node name="Gun" type="MeshInstance3D" parent="Head/Camera/GunPos"]
 layers = 4
