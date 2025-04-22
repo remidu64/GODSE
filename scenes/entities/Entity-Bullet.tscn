@@ -1,16 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8u3utxr8to8i"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_io41b"]
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_io41b"]
 
-[node name="Entity-Bullet" type="Node3D"]
+[sub_resource type="SphereMesh" id="SphereMesh_rhpdy"]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-mesh = SubResource("SphereMesh_io41b")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_io41b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_rhpdy")
+skeleton = NodePath("../CollisionShape3D")

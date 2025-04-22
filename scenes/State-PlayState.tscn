@@ -46,14 +46,19 @@ environment = SubResource("Environment_l02w5")
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 12.4489, 0)
 shadow_enabled = true
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://2t0235x02uih")
+spawn_path = NodePath("..")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(9.00695, 0.000833602, -0.00753786, -0.00750603, 0.99944, 0.00939194, 0.00680577, -0.000939341, 9.98615, 0.409249, 0, 0)
+transform = Transform3D(9.99999, 0.000833235, -0.00754829, -0.00833359, 0.998999, 0.00940496, 0.00755613, -0.000938927, 9.99999, 0.409249, 0, 0)
 material_overlay = SubResource("StandardMaterial3D_i356m")
 mesh = SubResource("BoxMesh_b0ega")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, -4.68958e-12, 5.82077e-11, 1.81672e-09, 1, 0, 0, 1.45519e-11, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_m5se5")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
@@ -64,10 +69,6 @@ mesh = SubResource("BoxMesh_ewrdw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_xq65u")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://2t0235x02uih")
-spawn_path = NodePath("..")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(6.64162, 0, 0, 0, 1.20642, 0, 0, 0, 116.742, 3.55613, 3.76979, 2.24475)

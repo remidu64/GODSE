@@ -1,7 +1,6 @@
 extends Node3D
 
 const Player = preload("res://scenes/entities/Entity-Player.tscn")
-const Bullet = preload("res://scenes/entities/Entity-Bullet.tscn")
 
 
 
@@ -28,11 +27,6 @@ func add_player(id):
 	var newPlayer = Player.instantiate()
 	newPlayer.name = str(id)
 	add_child(newPlayer)
-	for i in get_tree().get_nodes_in_group("players"):
-		i.connect("shooting", spawn_bullet)
 
 func toggle_shadows():
 	SunLight.shadow_enabled = Options.shadows
-	
-func spawn_bullet():	
-	add_child(Bullet.instantiate())

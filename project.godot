@@ -90,6 +90,10 @@ shoot={
 
 3d/run_on_separate_thread=true
 3d/physics_engine="Jolt Physics"
+jolt_physics_3d/simulation/velocity_steps=20
+jolt_physics_3d/simulation/penetration_slop=0.0
+jolt_physics_3d/simulation/continuous_cd_movement_threshold=0.0
+jolt_physics_3d/simulation/continuous_cd_max_penetration=0.0
 3d/default_gravity=20.0
 common/physics_interpolation=true
 

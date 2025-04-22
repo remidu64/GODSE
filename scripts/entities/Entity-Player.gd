@@ -1,7 +1,5 @@
 extends CharacterBody3D
 
-signal shooting
-
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera
@@ -28,6 +26,7 @@ const RECOIL: float = 3
 
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
+const Bullet = preload("res://scenes/entities/Entity-Bullet.tscn")
 # built in godot functions
 
 func _enter_tree() -> void:
@@ -150,7 +149,11 @@ func shoot():
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * RECOIL
 	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
-	shooting.emit()
+	var bullet = Bullet.instantiate()
+	print(bullet)
+	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
+	bullet.linear_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
+	get_parent().add_child(bullet)
 	
 
 @rpc("any_peer")
