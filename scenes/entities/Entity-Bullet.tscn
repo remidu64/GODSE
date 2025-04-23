@@ -1,36 +1,29 @@
 [gd_scene load_steps=5 format=3 uid="uid://c8u3utxr8to8i"]
 
 [ext_resource type="Script" uid="uid://cipbc1ej8wm6j" path="res://scripts/entities/Entity_Bullet.gd" id="1_rhpdy"]
+[ext_resource type="PackedScene" uid="uid://xic4gqs175m3" path="res://scenes/entities/Entity-Bullet-Head.tscn" id="2_cwn2a"]
+[ext_resource type="PackedScene" uid="uid://ci8npsk8vdgve" path="res://scenes/entities/Entity-Bullet-Body.tscn" id="3_nt1el"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_io41b"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_rhpdy"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_io41b"]
-properties/0/path = NodePath(".:linear_velocity")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ogm6f"]
+properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:angular_velocity")
+properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath(".:position")
+properties/2/path = NodePath(".:starting_velocity")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath(".:rotation")
+properties/3/path = NodePath(".:shooter_name")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
-[node name="RigidBody3D" type="RigidBody3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-continuous_cd = true
+[node name="RigidBody3D" type="Node3D"]
 script = ExtResource("1_rhpdy")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_io41b")
+[node name="Head" parent="." instance=ExtResource("2_cwn2a")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_rhpdy")
-skeleton = NodePath("../CollisionShape3D")
+[node name="Body" parent="." instance=ExtResource("3_nt1el")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_io41b")
+replication_config = SubResource("SceneReplicationConfig_ogm6f")

@@ -2,11 +2,7 @@ extends Node3D
 
 const Player = preload("res://scenes/entities/Entity-Player.tscn")
 
-
-
 @onready var SunLight: DirectionalLight3D = $DirectionalLight3D
-
-var pos = Vector3(1, 0, 0)
 
 func _ready():
 	Networking.add_player_request.connect(add_player)
@@ -21,7 +17,6 @@ func remove_player(id):
 	var player = get_node_or_null(str(id))
 	if player:
 		player.queue_free()
-	
 
 func add_player(id):
 	var newPlayer = Player.instantiate()

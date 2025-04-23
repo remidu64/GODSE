@@ -154,9 +154,10 @@ func shoot():
 	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
 	var bullet = Bullet.instantiate()
-	bullet.shooter = self
-	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
-	bullet.linear_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
+	bullet.shooter_name = name
+	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 1.58)
+	bullet.starting_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
+	bullet.rotation = raycast.global_rotation
 	get_parent().add_child(bullet, true)
 
 func check_if_can_move():

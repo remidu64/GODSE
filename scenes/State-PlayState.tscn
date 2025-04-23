@@ -28,7 +28,7 @@ shadow_enabled = true
 _spawnable_scenes = PackedStringArray("uid://2t0235x02uih")
 spawn_path = NodePath("..")
 
-[node name="map" parent="." instance=ExtResource("2_ta74y")]
+[node name="map" parent="." groups=["map"] instance=ExtResource("2_ta74y")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -10.3515, 0)
 
 [node name="BulletSpawner" type="MultiplayerSpawner" parent="."]
