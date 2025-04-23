@@ -150,10 +150,9 @@ func shoot():
 	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
 	var bullet = Bullet.instantiate()
-	print(bullet)
 	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
 	bullet.linear_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
-	get_parent().add_child(bullet)
+	get_parent().add_child(bullet, true)
 	
 
 @rpc("any_peer")
