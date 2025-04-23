@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jwpflfy0v40r"
-path.s3tc="res://.godot/imported/asphalt-1600-mm-architextures.jpg-b8f9e09ab19367e17ffc781a9479798d.s3tc.ctex"
+uid="uid://cgtg21t6xmcv0"
+path.s3tc="res://.godot/imported/map_baked.png-8c9ec9a4973498a8093450f40f3a178f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "3198e4421420ac572e70acf39939a0ca"
+}
 
 [deps]
 
-source_file="res://assets/sprites/terrain/asphalt-1600-mm-architextures.jpg"
-dest_files=["res://.godot/imported/asphalt-1600-mm-architextures.jpg-b8f9e09ab19367e17ffc781a9479798d.s3tc.ctex"]
+source_file="res://assets/model/map/map_baked.png"
+dest_files=["res://.godot/imported/map_baked.png-8c9ec9a4973498a8093450f40f3a178f.s3tc.ctex"]
 
 [params]
 
