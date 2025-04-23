@@ -82,6 +82,10 @@ func _physics_process(delta: float) -> void:
 		return
 	# WARNING: put all gameplay related shit under this line
 	
+	if health <= 0:
+		position = Vector3(randf_range(-10, 10), 1, randi_range(-10, 10))
+		print("dead")
+		health = 100 	
 		
 	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
 	
@@ -150,25 +154,10 @@ func shoot():
 	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
 	var bullet = Bullet.instantiate()
+	bullet.shooter = self
 	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
 	bullet.linear_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
 	get_parent().add_child(bullet, true)
-	
-
-@rpc("any_peer")
-func damage_flag():
-	print("called damaged")
-
-func get_damaged(amt:int):
-	print("hit ", amt)		
-	health -= amt
-	print(health)
-	if health <= 0:
-		# TODO: fix the position resetting because for some reason it doesnt work
-		print(position) # why the fuck do u return the SHOOTER's position and not the TARGET's position
-		position = Vector3(randf_range(-10, 10), 1, randi_range(-10, 10))
-		print("dead")
-		health = 100
 
 func check_if_can_move():
 	if inOptions:
