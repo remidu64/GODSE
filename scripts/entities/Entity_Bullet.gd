@@ -15,7 +15,7 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	if get_tree().get_nodes_in_group("bullets").size() > 300:
+	if get_tree().get_nodes_in_group("bullets").size() > 100:
 			get_tree().get_nodes_in_group("bullets")[0].queue_free()
 	if is_instance_valid(head):
 		for i in head.get_colliding_bodies():
