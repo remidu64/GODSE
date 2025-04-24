@@ -8,7 +8,6 @@ func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
 	versionLabel.text = "GODSE v%s" % GameInfo.gameVersion
 
-
 func _on_join_pressed() -> void:
 	Networking.ip = serverIP.text
 	Networking.join_server()

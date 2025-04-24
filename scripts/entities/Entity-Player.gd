@@ -26,7 +26,9 @@ const RECOIL: float = 3
 
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
-const Bullet = preload("res://scenes/entities/Entity-Bullet.tscn")
+const HEAD = preload("res://scenes/entities/Entity-Bullet-Head.tscn")
+const BODY = preload("res://scenes/entities/Entity-Bullet-Body.tscn")
+
 # built in godot functions
 
 func _enter_tree() -> void:
@@ -156,13 +158,16 @@ func shoot():
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * RECOIL
 	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
-	var bullet = Bullet.instantiate()
-	bullet.shooter_name = name
-	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 1.58)
-	bullet.head_velocity = -raycast.get_global_transform_interpolated().basis.z * 50 + velocity
-	bullet.casing_velocity = raycast.get_global_transform_interpolated().basis.x * 7 + raycast.get_global_transform_interpolated().basis.y * 7 + velocity
-	bullet.rotation = raycast.global_rotation
-	get_parent().add_child(bullet, true)
+	var head = HEAD.instantiate()
+	var body = BODY.instantiate()
+	head.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 1.58)
+	body.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 1.58)
+	head.linear_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
+	body.linear_velocity = raycast.get_global_transform_interpolated().basis.x * 7 + raycast.get_global_transform_interpolated().basis.y * 7
+	head.rotation = raycast.global_rotation
+	body.rotation = raycast.global_rotation
+	get_parent().add_child(head, true)
+	get_parent().add_child(body, true)
 
 func check_if_can_move():
 	if inOptions:
