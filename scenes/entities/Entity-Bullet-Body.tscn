@@ -132,7 +132,6 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [node name="Body" type="RigidBody3D"]
-mass = 5.0
 continuous_cd = true
 
 [node name="cube" type="MeshInstance3D" parent="."]

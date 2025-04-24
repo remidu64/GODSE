@@ -82,6 +82,9 @@ func _physics_process(delta: float) -> void:
 		return
 	# WARNING: put all gameplay related shit under this line
 	
+	if position.y < -100:
+		health = 0
+	
 	if health <= 0:
 		position = Vector3(randf_range(-10, 10), 1, randi_range(-10, 10))
 		print("dead")
@@ -156,7 +159,8 @@ func shoot():
 	var bullet = Bullet.instantiate()
 	bullet.shooter_name = name
 	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 1.58)
-	bullet.starting_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
+	bullet.head_velocity = -raycast.get_global_transform_interpolated().basis.z * 50 + velocity
+	bullet.casing_velocity = raycast.get_global_transform_interpolated().basis.x * 7 + raycast.get_global_transform_interpolated().basis.y * 7 + velocity
 	bullet.rotation = raycast.global_rotation
 	get_parent().add_child(bullet, true)
 

@@ -85,6 +85,8 @@ shoot={
 
 3d_render/layer_1="game"
 3d_render/layer_2="hud"
+3d_physics/layer_1="Layer 1"
+3d_physics/layer_2="Layer 2"
 
 [physics]
 
