@@ -112,7 +112,3 @@ replication_config = SubResource("SceneReplicationConfig_v1vfl")
 
 [node name="hitmarker" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("5_4x535")
-
-[node name="BulletSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://ci8npsk8vdgve")
-spawn_path = NodePath("..")
