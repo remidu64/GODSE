@@ -15,7 +15,6 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	var bullets = get_tree().get_nodes_in_group("bullets")
-	print(bullets.size())
 
 func remove_player(id):
 	var player = get_node_or_null(str(id))
