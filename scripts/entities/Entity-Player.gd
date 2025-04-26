@@ -161,7 +161,7 @@ func shoot():
 	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 10)
 	bullet.linear_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
 	bullet.rotation = raycast.global_rotation
-	get_parent().add_child(bullet, true)
+	get_node("/root/gayme").add_child(bullet, true)
 
 func check_if_can_move():
 	if inOptions:

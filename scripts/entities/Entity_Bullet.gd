@@ -6,14 +6,10 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	if position.y < -100:
-		yeet()
+		queue_free()
 	for i in get_colliding_bodies():
 		if i is CharacterBody3D:
 			i.health -= 20
-			yeet()
+			queue_free()
 		if i.is_in_group("map"):
-			yeet()
-
-@rpc("any_peer")			
-func yeet():
-	self.queue_free()
+			queue_free()
