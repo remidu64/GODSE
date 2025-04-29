@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqmmnmcw72o6t"]
+
+[ext_resource type="Script" uid="uid://bxqlbfr0g6hr7" path="res://scripts/entities/Entity_Server.gd" id="1_0r34m"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_0r34m")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+cull_mask = 0

@@ -1,6 +1,7 @@
 extends Node3D
 
 const Player = preload("res://scenes/entities/Entity-Player.tscn")
+const Server_Dummy = preload("res://scenes/entities/Entity-Server.tscn")
 
 @onready var SunLight: DirectionalLight3D = $DirectionalLight3D
 
@@ -12,6 +13,11 @@ func _ready():
 	Global.play_state_loaded.emit()
 	
 	toggle_shadows()
+	
+	if multiplayer.is_server():
+		var server_dummy = Server_Dummy.instantiate()
+		add_child(server_dummy)
+		
 
 func _physics_process(delta: float) -> void:
 	var bullets = get_tree().get_nodes_in_group("bullets")

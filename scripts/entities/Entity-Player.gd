@@ -73,6 +73,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		shoot.rpc()
 
 func _physics_process(delta: float) -> void:
+	if multiplayer.is_server():
+		return
 	gun.position = lerp(gun.position, Vector3(0, 0, 0), 10.0 * delta)
 	gun.rotation = lerp(gun.rotation, Vector3(0, 0, 0), 10.0 * delta)
 	if raycast.is_colliding():
@@ -149,6 +151,8 @@ func _physics_process(delta: float) -> void:
 
 @rpc("call_local")
 func shoot():
+	if multiplayer.is_server():
+		return
 	var coeff_y = remap(raycast.global_rotation.x, -PI/2, PI/2, 1, -1)
 	gun.position.z += randf_range(0.25, 0.75)
 	gun.position.x += randf_range(-0.1, 0.1)
