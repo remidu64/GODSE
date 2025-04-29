@@ -34,3 +34,7 @@ transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -10.3515, 0)
 [node name="BulletSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://ci8npsk8vdgve")
 spawn_path = NodePath("..")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dqmmnmcw72o6t")
+spawn_path = NodePath("..")

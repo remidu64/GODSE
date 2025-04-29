@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqmmnmcw72o6t"]
+[gd_scene load_steps=4 format=3 uid="uid://dqmmnmcw72o6t"]
 
 [ext_resource type="Script" uid="uid://bxqlbfr0g6hr7" path="res://scripts/entities/Entity_Server.gd" id="1_0r34m"]
+[ext_resource type="PackedScene" uid="uid://sxt3dq17sw8a" path="res://scenes/substates/SubState-DedicatedServerMenu.tscn" id="2_bsngs"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bsngs"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_0r34m")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-cull_mask = 0
+[node name="OptionsHud" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="DSMenu" parent="OptionsHud" instance=ExtResource("2_bsngs")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("../OptionsHud")
+replication_config = SubResource("SceneReplicationConfig_bsngs")

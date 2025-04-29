@@ -37,8 +37,6 @@ func _ready():
 	if not is_multiplayer_authority():
 		return
 	
-	add_to_group("players")
-	
 	print(str(name).to_int())
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -162,7 +160,7 @@ func shoot():
 	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
 	var bullet = BULLET.instantiate()
-	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 10)
+	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
 	bullet.linear_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
 	bullet.rotation = raycast.global_rotation
 	get_node("/root/gayme").add_child(bullet, true)

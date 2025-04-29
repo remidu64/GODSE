@@ -18,9 +18,7 @@ func _ready():
 		var server_dummy = Server_Dummy.instantiate()
 		add_child(server_dummy)
 		
-
-func _physics_process(delta: float) -> void:
-	var bullets = get_tree().get_nodes_in_group("bullets")
+	
 
 func remove_player(id):
 	var player = get_node_or_null(str(id))
@@ -30,6 +28,7 @@ func remove_player(id):
 func add_player(id):
 	var newPlayer = Player.instantiate()
 	newPlayer.name = str(id)
+	newPlayer.add_to_group("players")
 	add_child(newPlayer)
 
 func toggle_shadows():

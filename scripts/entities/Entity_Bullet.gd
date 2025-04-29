@@ -9,7 +9,11 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 	for i in get_colliding_bodies():
 		if i is CharacterBody3D:
+			queue_free()
 			i.health -= 20
-			queue_free()
 		if i.is_in_group("map"):
-			queue_free()
+			pass
+			# queue_free()
+			
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	pass
