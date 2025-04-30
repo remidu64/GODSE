@@ -3,8 +3,9 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera
-@onready var gunpos: Node3D = $Head/Camera/GunPos
-@onready var gun: Node3D = $Head/Camera/GunPos/Gun
+@onready var gun: Node3D = $Head/Camera/Gun
+@onready var hudcamera: Node3D = $HUD/SubViewportContainer/SubViewport/HudCamera
+@onready var hudgun: Node3D = $HudGun
 @onready var raycast: RayCast3D = $Head/Camera/RayCast3D
 
 @onready var optionsHud: CanvasLayer = $OptionsHud
@@ -48,6 +49,8 @@ func _ready():
 	
 	# set the player variable in Global (Autoload-Global.gd)
 	Global.Player = self
+	
+	gun.visible = false
 
 func _exit_tree() -> void:
 	if not is_multiplayer_authority():
@@ -139,6 +142,7 @@ func _physics_process(delta: float) -> void:
 			
 	
 	# p h y s i c s
+	hudgun.position = Vector3(0.548, 1.27, -0.703)
 	move_and_slide()
 
 # custom functions

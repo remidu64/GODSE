@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk186b0ds4vqp"
-path.s3tc="res://.godot/imported/vanguard_1.png-b153a10857b524ddceeb155f63fd41e5.s3tc.ctex"
+uid="uid://cly0isjrpntvk"
+path.s3tc="res://.godot/imported/vanguard_Image_0.png-8eabf23dfa938de5d0d30b3ea940d0f1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "36caca2ae17e1a1e1cf123b2fa927fa8"
+"md5": "08bc43ae6eff3fb677a0e43328e348d3"
 }
 
 [deps]
 
-source_file="res://assets/model/gun/vanguard/vanguard_1.png"
-dest_files=["res://.godot/imported/vanguard_1.png-b153a10857b524ddceeb155f63fd41e5.s3tc.ctex"]
+source_file="res://assets/model/gun/vanguard/vanguard_Image_0.png"
+dest_files=["res://.godot/imported/vanguard_Image_0.png-8eabf23dfa938de5d0d30b3ea940d0f1.s3tc.ctex"]
 
 [params]
 
