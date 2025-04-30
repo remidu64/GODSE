@@ -75,10 +75,6 @@ func _physics_process(delta: float) -> void:
 		return
 	gun.position = lerp(gun.position, Vector3(0, 0, 0), 10.0 * delta)
 	gun.rotation = lerp(gun.rotation, Vector3(0, 0, 0), 10.0 * delta)
-	if raycast.is_colliding():
-		gunpos.look_at(raycast.get_collision_point())
-	else:
-		gunpos.rotation = Vector3(0, 0, 0)
 	if not is_multiplayer_authority():
 		return
 	# WARNING: put all gameplay related shit under this line
@@ -161,7 +157,6 @@ func shoot():
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
 	var bullet = BULLET.instantiate()
 	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
-	bullet.linear_velocity = -raycast.get_global_transform_interpolated().basis.z * 50
 	bullet.rotation = raycast.global_rotation
 	get_node("/root/gayme").add_child(bullet, true)
 

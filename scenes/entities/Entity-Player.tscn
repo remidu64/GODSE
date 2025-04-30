@@ -29,6 +29,21 @@ properties/3/replication_mode = 1
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_g13of")
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+cull_mask = 1048574
+
+[node name="Gun" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.556, 1.23, -0.633)
+layers = 2
+skeleton = NodePath("../LocalGunPos")
+
+[node name="blockbench_export" parent="Gun" instance=ExtResource("2_opunm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44342, -0.376634, -0.142159)
+
+[node name="LocalGunPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.556, 1.23, -0.633)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_2m2ha")
@@ -41,21 +56,22 @@ shape = SubResource("ConvexPolygonShape3D_g13of")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera" type="Camera3D" parent="Head"]
-cull_mask = 1048571
-
-[node name="GunPos" type="Node3D" parent="Head/Camera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.590525, -0.336789, -0.83307)
-
-[node name="Gun" type="MeshInstance3D" parent="Head/Camera/GunPos"]
-layers = 4
-
-[node name="blockbench_export" parent="Head/Camera/GunPos/Gun" instance=ExtResource("2_opunm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44342, -0.376634, -0.142159)
+cull_mask = 1048573
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0515293, 0)
 target_position = Vector3(0, 0, -50)
 hit_back_faces = false
+
+[node name="GunPos" type="Node3D" parent="Head/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.555582, -0.270441, -0.632759)
+visible = false
+
+[node name="Gun" type="MeshInstance3D" parent="Head/Camera/GunPos"]
+layers = 2
+
+[node name="blockbench_export" parent="Head/Camera/GunPos/Gun" instance=ExtResource("2_opunm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44342, -0.376634, -0.142159)
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
