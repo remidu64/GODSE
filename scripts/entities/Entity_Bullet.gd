@@ -15,5 +15,5 @@ func _physics_process(delta: float) -> void:
 		if i is CharacterBody3D:
 			queue_free()
 			i.health -= 20
-		#if i.is_in_group("map"):
-			#queue_free()
+		if i.is_in_group("map"):
+			queue_free()
