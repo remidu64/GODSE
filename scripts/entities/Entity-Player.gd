@@ -3,9 +3,9 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera
-@onready var gun: Node3D = $Head/Camera/Gun
-@onready var hudcamera: Node3D = $HUD/SubViewportContainer/SubViewport/HudCamera
-@onready var hudgun: Node3D = $HUD/SubViewportContainer/SubViewport/HudCamera/HudGun
+@onready var gun: MeshInstance3D = $GunPos/Gun
+@onready var gunpos: Node3D = $GunPos
+@onready var truegunpos: Node3D = $Head/Camera/TrueGunPos
 @onready var raycast: RayCast3D = $Head/Camera/RayCast3D
 
 @onready var optionsHud: CanvasLayer = $OptionsHud
@@ -14,8 +14,9 @@ extends CharacterBody3D
 var inOptions = false
 
 var health: int = 100
+var guntransform = null
 
-# Movement constants
+# constants
 const ACCELERATION: float = 1.1
 const RUNNING_MULTIPLIER: float = 1.5
 const JUMP_VELOCITY: float = 5.5
@@ -24,7 +25,6 @@ const LATERAL_VELOCITY_COEFFICENT: float = 0.05 # How much does moving impact ho
 const FRICTION: float = 0.35
 const AIR_FRICTION: float = 0.01
 const RECOIL: float = 3
-var DEFAULTGUNPOS = null
 
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
@@ -36,6 +36,8 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
+	if multiplayer.is_server():
+		return
 	if not is_multiplayer_authority():
 		return
 	
@@ -43,16 +45,14 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Options.changed.connect(reload_options)
-	camera.current = true
+	camera.make_current()
 	
 	raycast.position = camera.position
 	raycast.rotation = camera.rotation
+	gunpos.global_transform = truegunpos.global_transform
 	
 	# set the player variable in Global (Autoload-Global.gd)
 	Global.Player = self
-	
-	gun.visible = false
-	DEFAULTGUNPOS = hudgun.position
 
 func _exit_tree() -> void:
 	if not is_multiplayer_authority():
@@ -78,13 +78,20 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
 		return
-	gun.position = lerp(gun.position, Vector3(0, 0, 0), 10.0 * delta)
-	gun.rotation = lerp(gun.rotation, Vector3(0, 0, 0), 10.0 * delta)
+	
+	# CODE HERE RUNS FOR EVERY PLAYER
+	gunpos.global_transform = lerp(gunpos.global_transform, truegunpos.global_transform, 25.0 * delta)
+	# CODE HERE RUNS FOR EVERY PLAYER
+	
 	if not is_multiplayer_authority():
+		# CODE HERE ONLY RUNS FOR OTHER PLAYERS
+		pass
+		# CODE HERE ONLY RUNS FOR OTHER PLAYERS
 		return
-	hudgun.position = lerp(hudgun.position, DEFAULTGUNPOS, 10.0 * delta)
-	hudgun.rotation = lerp(hudgun.rotation, Vector3(0, 0, 0), 10.0 * delta)
-	# WARNING: put all gameplay related shit under this line
+		
+	# CODE BELLOW ONLY RUNS FOR CURRENT PLAYER
+	gun.transform = lerp(gun.transform, Transform3D.IDENTITY, 10.0 * delta)
+	camera.make_current() 
 	
 	if position.y < -100:
 		health = 0
@@ -143,8 +150,6 @@ func _physics_process(delta: float) -> void:
 			velocity.x += ACCELERATION * direction.x * 0.05
 			velocity.z += ACCELERATION * direction.z * 0.05
 			
-			
-	
 	# p h y s i c s
 	move_and_slide()
 
@@ -155,14 +160,9 @@ func shoot():
 	if multiplayer.is_server():
 		return
 	var coeff_y = remap(raycast.global_rotation.x, -PI/2, PI/2, 1, -1)
-	gun.position.z += randf_range(0.25, 0.75)
-	gun.position.x += randf_range(-0.1, 0.1)
-	gun.rotation.x += randf_range(TAU/16, TAU/12)
-	gun.rotation.y += randf_range(-TAU/22, TAU/22)
-	hudgun.position.z += randf_range(0.25, 0.75)
-	hudgun.position.x += randf_range(-0.1, 0.1)
-	hudgun.rotation.x += randf_range(TAU/16, TAU/12)
-	hudgun.rotation.y += randf_range(-TAU/22, TAU/22)
+	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), 0, randf_range(0.25, 0.75)))
+	gun.transform = gun.transform.rotated(Vector3.RIGHT, randf_range(TAU/16, TAU/12)) 
+	gun.transform = gun.transform.rotated(Vector3.UP, randf_range(-TAU/22, TAU/22))
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * RECOIL
 	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
