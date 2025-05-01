@@ -5,7 +5,7 @@ extends CharacterBody3D
 @onready var camera: Camera3D = $Head/Camera
 @onready var gun: Node3D = $Head/Camera/Gun
 @onready var hudcamera: Node3D = $HUD/SubViewportContainer/SubViewport/HudCamera
-@onready var hudgun: Node3D = $HudGun
+@onready var hudgun: Node3D = $HUD/SubViewportContainer/SubViewport/HudCamera/HudGun
 @onready var raycast: RayCast3D = $Head/Camera/RayCast3D
 
 @onready var optionsHud: CanvasLayer = $OptionsHud
@@ -24,6 +24,7 @@ const LATERAL_VELOCITY_COEFFICENT: float = 0.05 # How much does moving impact ho
 const FRICTION: float = 0.35
 const AIR_FRICTION: float = 0.01
 const RECOIL: float = 3
+var DEFAULTGUNPOS = null
 
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
@@ -51,6 +52,7 @@ func _ready():
 	Global.Player = self
 	
 	gun.visible = false
+	DEFAULTGUNPOS = hudgun.position
 
 func _exit_tree() -> void:
 	if not is_multiplayer_authority():
@@ -80,6 +82,8 @@ func _physics_process(delta: float) -> void:
 	gun.rotation = lerp(gun.rotation, Vector3(0, 0, 0), 10.0 * delta)
 	if not is_multiplayer_authority():
 		return
+	hudgun.position = lerp(hudgun.position, DEFAULTGUNPOS, 10.0 * delta)
+	hudgun.rotation = lerp(hudgun.rotation, Vector3(0, 0, 0), 10.0 * delta)
 	# WARNING: put all gameplay related shit under this line
 	
 	if position.y < -100:
@@ -142,7 +146,6 @@ func _physics_process(delta: float) -> void:
 			
 	
 	# p h y s i c s
-	hudgun.position = Vector3(0.548, 1.27, -0.703)
 	move_and_slide()
 
 # custom functions
@@ -156,6 +159,10 @@ func shoot():
 	gun.position.x += randf_range(-0.1, 0.1)
 	gun.rotation.x += randf_range(TAU/16, TAU/12)
 	gun.rotation.y += randf_range(-TAU/22, TAU/22)
+	hudgun.position.z += randf_range(0.25, 0.75)
+	hudgun.position.x += randf_range(-0.1, 0.1)
+	hudgun.rotation.x += randf_range(TAU/16, TAU/12)
+	hudgun.rotation.y += randf_range(-TAU/22, TAU/22)
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * RECOIL
 	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
