@@ -1,11 +1,7 @@
-[gd_scene load_steps=25 format=4 uid="uid://ci8npsk8vdgve"]
+[gd_scene load_steps=24 format=4 uid="uid://ci8npsk8vdgve"]
 
 [ext_resource type="Script" uid="uid://cbtnyeqtq8ljk" path="res://scripts/entities/Entity_Bullet.gd" id="1_rhpdy"]
 [ext_resource type="Texture2D" uid="uid://4pwjbcvvl12d" path="res://assets/model/bullets/base bullet/bullet_0.png" id="2_ogm6f"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ogm6f"]
-radius = 0.075
-height = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vwydq"]
 resource_name = "material_0"
@@ -256,12 +252,6 @@ center_of_mass_mode = 1
 center_of_mass = Vector3(0, 0, -0.07)
 continuous_cd = true
 script = ExtResource("1_rhpdy")
-
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.000122941, 0.00043018, 0.0397876)
-shape = SubResource("CapsuleShape3D_ogm6f")
 
 [node name="cube" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0309952, -0.0307535, -0.0734587)

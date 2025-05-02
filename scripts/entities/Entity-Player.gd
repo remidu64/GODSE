@@ -160,7 +160,7 @@ func shoot():
 	if multiplayer.is_server():
 		return
 	var coeff_y = remap(raycast.global_rotation.x, -PI/2, PI/2, 1, -1)
-	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), 0, randf_range(0.25, 0.75)))
+	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), randf_range(0.2, 0.4), randf_range(0.25, 0.75)))
 	gun.transform = gun.transform.rotated(Vector3.RIGHT, randf_range(TAU/16, TAU/12)) 
 	gun.transform = gun.transform.rotated(Vector3.UP, randf_range(-TAU/22, TAU/22))
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * RECOIL
