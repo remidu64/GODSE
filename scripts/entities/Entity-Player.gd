@@ -7,14 +7,21 @@ extends CharacterBody3D
 @onready var gunpos: Node3D = $GunPos
 @onready var truegunpos: Node3D = $Head/Camera/TrueGunPos
 @onready var raycast: RayCast3D = $Head/Camera/RayCast3D
+@onready var nametag: Label3D = $Nametag
+@onready var healthtag: Label3D = $Healthtag
 
 @onready var optionsHud: CanvasLayer = $OptionsHud
 @onready var optionsMenu: Control = $OptionsHud/OptionsMenu
 
-var inOptions = false
+# global variables
 
-var health: int = 100
+var inOptions = false
 var guntransform = null
+
+# synced variables
+@export var health: int = 100
+@export var max_health: int = 100
+
 
 # constants
 const ACCELERATION: float = 1.1
@@ -25,6 +32,7 @@ const LATERAL_VELOCITY_COEFFICENT: float = 0.05 # How much does moving impact ho
 const FRICTION: float = 0.35
 const AIR_FRICTION: float = 0.01
 const RECOIL: float = 3
+const TINY_VECTOR = Vector3.LEFT * 0.001
 
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
@@ -38,6 +46,8 @@ func _enter_tree() -> void:
 func _ready():
 	if multiplayer.is_server():
 		return
+	nametag.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	healthtag.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	if not is_multiplayer_authority():
 		return
 	
@@ -51,8 +61,12 @@ func _ready():
 	raycast.rotation = camera.rotation
 	gunpos.global_transform = truegunpos.global_transform
 	
+	nametag.visible = false
+	healthtag.visible = false
+	
 	# set the player variable in Global (Autoload-Global.gd)
 	Global.Player = self
+	
 
 func _exit_tree() -> void:
 	if not is_multiplayer_authority():
@@ -81,6 +95,8 @@ func _physics_process(delta: float) -> void:
 	
 	# CODE HERE RUNS FOR EVERY PLAYER
 	gunpos.global_transform = lerp(gunpos.global_transform, truegunpos.global_transform, 25.0 * delta)
+	gun.transform = lerp(gun.transform, Transform3D.IDENTITY, 10.0 * delta)
+	healthtag.text = "%s / %s" % [health, max_health]
 	# CODE HERE RUNS FOR EVERY PLAYER
 	
 	if not is_multiplayer_authority():
@@ -89,9 +105,9 @@ func _physics_process(delta: float) -> void:
 		# CODE HERE ONLY RUNS FOR OTHER PLAYERS
 		return
 		
-	# CODE BELLOW ONLY RUNS FOR CURRENT PLAYER
-	gun.transform = lerp(gun.transform, Transform3D.IDENTITY, 10.0 * delta)
-	camera.make_current() 
+	# CODE BELOW ONLY RUNS FOR CURRENT PLAYER
+	
+	camera.make_current()
 	
 	if position.y < -100:
 		health = 0
@@ -99,7 +115,7 @@ func _physics_process(delta: float) -> void:
 	if health <= 0:
 		position = Vector3(randf_range(-10, 10), 1, randi_range(-10, 10))
 		print("dead")
-		health = 100 	
+		health = max_health	
 		
 	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
 	

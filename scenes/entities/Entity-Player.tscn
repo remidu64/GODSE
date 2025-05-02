@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://2t0235x02uih"]
+[gd_scene load_steps=15 format=4 uid="uid://2t0235x02uih"]
 
 [ext_resource type="Script" uid="uid://bmfga3wqtkk6i" path="res://scripts/entities/Entity-Player.gd" id="1_g13of"]
 [ext_resource type="Texture2D" uid="uid://c5kv8sb3o1uvk" path="res://assets/sprites/hud/crosshairs/hitmarker.png" id="2_1bx53"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://2wdygwbi2mlj" path="res://scenes/substates/SubState-OptionsMenu.tscn" id="2_v1vfl"]
 [ext_resource type="Texture2D" uid="uid://dyfsrqesqm46g" path="res://assets/sprites/hud/crosshairs/crosshair1.png" id="2_ybmsl"]
 [ext_resource type="Texture2D" uid="uid://d0duudv1twhtv" path="res://assets/model/gun/vanguard/vanguard_Image_1.png" id="3_o8i5w"]
-[ext_resource type="Texture2D" uid="uid://b2hpyyirwnmp" path="res://assets/sprites/player/bean.png" id="4_o8i5w"]
 [ext_resource type="AudioStream" uid="uid://c5d05540i64hx" path="res://assets/sounds/hitmarker.ogg" id="5_4x535"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ii3v1"]
@@ -81,13 +80,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_yd2te")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wiice"]
-albedo_color = Color(0.728822, 0.728822, 0.728822, 1)
-albedo_texture = ExtResource("4_o8i5w")
-detail_blend_mode = 3
-detail_albedo = ExtResource("4_o8i5w")
-uv1_scale = Vector3(2, 2, 2)
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2m2ha"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g13of"]
@@ -106,9 +98,23 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("Head:rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath(".:health")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:max_health")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_g13of")
+
+[node name="Nametag" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.53317, 0)
+text = "test"
+
+[node name="Healthtag" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31986, 0)
+text = "test"
 
 [node name="GunPos" type="Node3D" parent="."]
 
@@ -118,7 +124,6 @@ skeleton = NodePath("")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-material_override = SubResource("StandardMaterial3D_wiice")
 mesh = SubResource("CapsuleMesh_2m2ha")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
