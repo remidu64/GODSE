@@ -94,7 +94,8 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# CODE HERE RUNS FOR EVERY PLAYER
-	gunpos.global_transform = lerp(gunpos.global_transform, truegunpos.global_transform, 25.0 * delta)
+	var diff = Vector3(angle_difference(gunpos.global_rotation.x, truegunpos.global_rotation.x), angle_difference(gunpos.global_rotation.y, truegunpos.global_rotation.y), angle_difference(gunpos.global_rotation.z, truegunpos.global_rotation.z))
+	gunpos.global_transform = lerp(gunpos.global_transform, truegunpos.global_transform, (100*diff.length() + 10) * delta)
 	gun.transform = lerp(gun.transform, Transform3D.IDENTITY, 10.0 * delta)
 	healthtag.text = "%s / %s" % [health, max_health]
 	# CODE HERE RUNS FOR EVERY PLAYER
