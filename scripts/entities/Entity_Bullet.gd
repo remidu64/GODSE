@@ -1,6 +1,8 @@
 extends RigidBody3D
 
 const TINY_VECTOR = Vector3.LEFT * 0.001
+var damage = 0
+var knockback = 0
 
 func _ready() -> void:
 	set_contact_monitor(true)
@@ -13,7 +15,10 @@ func _physics_process(delta: float) -> void:
 	for i in get_colliding_bodies():
 		if i is CharacterBody3D:
 			queue_free()
-			i.health -= 20
+			i.health -= damage
+			i.velocity.x -= sin(rotation.y) * knockback
+			i.velocity.z -= cos(rotation.y) * knockback
+			i.velocity.y += 1 * knockback
 		if i.is_in_group("map"):
 			queue_free()
 	look_at(global_position + linear_velocity + TINY_VECTOR)
