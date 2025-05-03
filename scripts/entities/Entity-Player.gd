@@ -21,6 +21,7 @@ var guntransform = null
 # synced variables
 @export var health: int = 100
 @export var max_health: int = 100
+@export var player_name = "john GODSE"
 
 
 # constants
@@ -66,6 +67,7 @@ func _ready():
 	
 	# set the player variable in Global (Autoload-Global.gd)
 	Global.Player = self
+	Global.player_loaded.emit()
 	
 
 func _exit_tree() -> void:
@@ -97,6 +99,7 @@ func _physics_process(delta: float) -> void:
 	var gunposdiff = Vector3(angle_difference(gunpos.global_rotation.x, truegunpos.global_rotation.x), angle_difference(gunpos.global_rotation.y, truegunpos.global_rotation.y), angle_difference(gunpos.global_rotation.z, truegunpos.global_rotation.z))
 	gunpos.global_transform = lerp(gunpos.global_transform, truegunpos.global_transform, (100*gunposdiff.length() + 3) * delta)
 	gun.transform = lerp(gun.transform, Transform3D.IDENTITY, 10.0 * delta)
+	nametag.text = player_name
 	# CODE HERE RUNS FOR EVERY PLAYER
 	
 	if not is_multiplayer_authority():

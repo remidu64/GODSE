@@ -1,6 +1,6 @@
 extends Node
 
-signal add_player_request(id)
+signal add_player_request(id, name)
 signal remove_player_request(id)
 signal add_server_request(id)
 

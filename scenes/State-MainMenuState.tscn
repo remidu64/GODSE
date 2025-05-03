@@ -66,7 +66,7 @@ text = "options"
 [node name="username" type="TextEdit" parent="VBoxContainer"]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
-placeholder_text = "name (doesnt work)"
+placeholder_text = "john GODSE"
 
 [node name="serverIP" type="TextEdit" parent="VBoxContainer"]
 custom_minimum_size = Vector2(200, 40)

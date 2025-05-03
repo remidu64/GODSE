@@ -104,6 +104,9 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath(".:max_health")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath(".:player_name")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_g13of")

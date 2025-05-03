@@ -2,6 +2,7 @@ extends Control
 
 @onready var versionLabel: Label = $versionLabel
 @onready var serverIP: TextEdit = $VBoxContainer/serverIP
+@onready var username: TextEdit = $VBoxContainer/username
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -11,6 +12,8 @@ func _ready() -> void:
 func _on_join_pressed() -> void:
 	Networking.ip = serverIP.text
 	Networking.join_server()
+	if username.text:
+		Global.Name = username.text
 	get_tree().change_scene_to_file("res://scenes/State-PlayState.tscn")
 
 
