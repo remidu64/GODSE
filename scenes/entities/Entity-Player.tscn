@@ -120,6 +120,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31986, 0)
 text = "test"
 
 [node name="GunPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.605695, 1.30082, 0)
 
 [node name="Gun" type="MeshInstance3D" parent="GunPos"]
 mesh = SubResource("ArrayMesh_wiice")

@@ -9,6 +9,7 @@ extends CharacterBody3D
 @onready var raycast: RayCast3D = $Head/Camera/RayCast3D
 @onready var nametag: Label3D = $Nametag
 @onready var healthtag: Label3D = $Healthtag
+@onready var hitmarker: AudioStreamPlayer = $Sounds/hitmarker
 
 @onready var optionsHud: CanvasLayer = $OptionsHud
 @onready var optionsMenu: Control = $OptionsHud/OptionsMenu
@@ -26,7 +27,7 @@ var guntransform = null
 
 # constants
 const ACCELERATION: float = 1.1
-const RUNNING_MULTIPLIER: float = 1.5
+const RUNNING_MULTIPLIER: float = 2
 const JUMP_VELOCITY: float = 5.5
 const JUMP_SPEED_MULTIPLIER: float = 1.35
 const LATERAL_VELOCITY_COEFFICENT: float = 0.05 # How much does moving impact how high you jump
@@ -192,6 +193,9 @@ func shoot():
 	bullet.damage = 10
 	bullet.knockback = 5
 	get_node("/root/gayme").add_child(bullet, true)
+	if not is_multiplayer_authority():
+		return
+	bullet.shooter = self
 
 func check_if_can_move():
 	if inOptions:
