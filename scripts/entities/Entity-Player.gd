@@ -96,8 +96,9 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# CODE HERE RUNS FOR EVERY PLAYER
-	var gunposdiff = Vector3(angle_difference(gunpos.global_rotation.x, truegunpos.global_rotation.x), angle_difference(gunpos.global_rotation.y, truegunpos.global_rotation.y), angle_difference(gunpos.global_rotation.z, truegunpos.global_rotation.z))
-	gunpos.global_transform = lerp(gunpos.global_transform, truegunpos.global_transform, (100*gunposdiff.length() + 3) * delta)
+	var gunangdiff = Vector3(angle_difference(gunpos.global_rotation.x, truegunpos.global_rotation.x), angle_difference(gunpos.global_rotation.y, truegunpos.global_rotation.y), angle_difference(gunpos.global_rotation.z, truegunpos.global_rotation.z))
+	gunpos.global_position += velocity.normalized() * -sqrt(velocity.length())/250
+	gunpos.global_transform = lerp(gunpos.global_transform, truegunpos.global_transform, (80*gunangdiff.length() + 6) * delta)
 	gun.transform = lerp(gun.transform, Transform3D.IDENTITY, 10.0 * delta)
 	nametag.text = player_name
 	# CODE HERE RUNS FOR EVERY PLAYER
@@ -188,7 +189,7 @@ func shoot():
 	var bullet = BULLET.instantiate()
 	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
 	bullet.rotation = raycast.global_rotation
-	bullet.damage = 0
+	bullet.damage = 10
 	bullet.knockback = 5
 	get_node("/root/gayme").add_child(bullet, true)
 
