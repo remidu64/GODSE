@@ -18,6 +18,10 @@ extends CharacterBody3D
 
 var inOptions = false
 var guntransform = null
+var target_fov = float(Options.fov)
+var running = false
+var adsing = false
+var sensitivity = float(Options.sensitivity)
 
 # synced variables
 @export var health: int = 100
@@ -35,6 +39,9 @@ const FRICTION: float = 0.35
 const AIR_FRICTION: float = 0.01
 const RECOIL: float = 3
 const TINY_VECTOR = Vector3.LEFT * 0.001
+const ADS_ZOOM = 1.5
+const RUN_ZOOM = 0.9
+var DEFAULT_GUN_POS = null
 
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
@@ -56,7 +63,6 @@ func _ready():
 	print(str(name).to_int())
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	Options.changed.connect(reload_options)
 	camera.make_current()
 	
 	raycast.position = camera.position
@@ -68,7 +74,9 @@ func _ready():
 	
 	# set the player variable in Global (Autoload-Global.gd)
 	Global.Player = self
+	DEFAULT_GUN_POS = truegunpos.position # gas station sushi
 	Global.player_loaded.emit()
+
 	
 
 func _exit_tree() -> void:
@@ -84,13 +92,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	
 	if event is InputEventMouseMotion:
-		head.rotate_y(deg_to_rad(-event.relative.x * Options.sensitivity))
-		camera.rotate_x(deg_to_rad(-event.relative.y * Options.sensitivity))
+		head.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
+		camera.rotate_x(deg_to_rad(-event.relative.y * sensitivity))
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 	
 	# shooting
 	if Input.is_action_just_pressed("shoot"):
 		shoot.rpc()
+	
 
 func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
@@ -114,6 +123,19 @@ func _physics_process(delta: float) -> void:
 	
 	camera.make_current()
 	
+	target_fov = float(Options.fov)
+	sensitivity = float(Options.sensitivity)
+	if running:
+		target_fov /= RUN_ZOOM
+	if adsing:
+		target_fov /= ADS_ZOOM
+		sensitivity = float(Options.sensitivity) / ADS_ZOOM
+		truegunpos.position = Vector3(-0.031, -0.3, 0)
+	else:
+		truegunpos.position = DEFAULT_GUN_POS
+		
+	camera.fov = lerp(camera.fov, target_fov, 15 * delta)
+	
 	if position.y < -100:
 		health = 0
 	
@@ -134,8 +156,13 @@ func _physics_process(delta: float) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			optionsHud.visible = false
 			optionsMenu.exit_menu()
-			reload_options()
 			inOptions = false
+			
+	# zooming
+	if Input.is_action_pressed("zoom"):
+		adsing = true
+	else:
+		adsing = false
 	
 	# Add the gravity.
 	# And also handle air friction and floor friction
@@ -152,9 +179,11 @@ func _physics_process(delta: float) -> void:
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if Input.is_action_pressed("run"): 
 		direction *= RUNNING_MULTIPLIER # Too lazy to propely implement running, so just multiply the direction vector by the running multiplier and call it a day
-		camera.fov = lerp(camera.fov, float(Options.fov + 10), 7.0 * delta) # If the player starts running, increase the FOV like what happens in Minecraft
+		running = true # If the player starts running, increase the FOV like what happens in Minecraft
 	else:
-		camera.fov = lerp(camera.fov, float(Options.fov), 7.0 * delta) # Make it go back to normal once the player is no longer running
+		running = false  # Make it go back to normal once the player is no longer running
+	if adsing:
+		direction /= ADS_ZOOM
 	
 	if check_if_can_move():
 		# Handle jump.
@@ -170,6 +199,7 @@ func _physics_process(delta: float) -> void:
 		elif direction:
 			velocity.x += ACCELERATION * direction.x * 0.05
 			velocity.z += ACCELERATION * direction.z * 0.05
+	
 			
 	# p h y s i c s
 	move_and_slide()
@@ -181,9 +211,12 @@ func shoot():
 	if multiplayer.is_server():
 		return
 	var coeff_y = remap(raycast.global_rotation.x, -PI/2, PI/2, 1, -1)
-	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), randf_range(0.2, 0.4), randf_range(0.25, 0.75)))
-	gun.transform = gun.transform.rotated(Vector3.RIGHT, randf_range(TAU/16, TAU/12)) 
-	gun.transform = gun.transform.rotated(Vector3.UP, randf_range(-TAU/22, TAU/22))
+	var RECOIL_MULT = 1
+	if adsing:
+		RECOIL_MULT = 0.05
+	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), randf_range(0.2, 0.4), randf_range(0.25, 0.75))*RECOIL_MULT)
+	gun.transform = gun.transform.rotated(Vector3.RIGHT, randf_range(TAU/16, TAU/12)*RECOIL_MULT) 
+	gun.transform = gun.transform.rotated(Vector3.UP, randf_range(-TAU/22, TAU/22)*RECOIL_MULT)
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * RECOIL
 	velocity.y += coeff_y * RECOIL
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
@@ -200,6 +233,3 @@ func check_if_can_move():
 		return false
 	
 	return true
-
-func reload_options():
-	camera.fov = Options.fov
