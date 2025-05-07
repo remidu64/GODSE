@@ -192,10 +192,8 @@ func shoot():
 	bullet.rotation = raycast.global_rotation
 	bullet.damage = 10
 	bullet.knockback = 5
-	get_node("/root/gayme").add_child(bullet, true)
-	if not is_multiplayer_authority():
-		return
 	bullet.shooter = self
+	Global.firin.emit(bullet)
 
 func check_if_can_move():
 	if inOptions:

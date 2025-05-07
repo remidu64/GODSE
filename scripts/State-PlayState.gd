@@ -9,6 +9,7 @@ func _ready():
 	Networking.add_player_request.connect(add_player)
 	Networking.remove_player_request.connect(remove_player)
 	Networking.add_server_request.connect(add_server)
+	Global.firin.connect(spawn_bullet)
 	Options.changed.connect(toggle_shadows)
 	
 	Global.play_state_loaded.emit()
@@ -34,3 +35,6 @@ func add_server(id):
 
 func toggle_shadows():
 	SunLight.shadow_enabled = Options.shadows
+	
+func spawn_bullet(projectile):
+	add_child(projectile)
