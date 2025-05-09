@@ -1,6 +1,5 @@
 extends RigidBody3D
 
-const TINY_VECTOR = Vector3.LEFT * 0.001
 var damage = 0
 var knockback = 0
 @export var shooter = null
@@ -23,4 +22,5 @@ func _physics_process(delta: float) -> void:
 			Global.hit.emit(shooter)
 		if i.is_in_group("map"):
 			queue_free()
-	look_at(global_position + linear_velocity + TINY_VECTOR)
+	if global_position + linear_velocity != global_position:
+		look_at(global_position + linear_velocity)

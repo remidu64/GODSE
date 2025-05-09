@@ -8,6 +8,10 @@ extends Control
 func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
 	versionLabel.text = "GODSE v%s" % GameInfo.gameVersion
+	if DisplayServer.get_name() == "headless":
+		Networking.ip = "localhost"
+		Networking.host_server()
+		get_tree().change_scene_to_file("res://scenes/State-PlayState.tscn")
 
 func _on_join_pressed() -> void:
 	Networking.ip = serverIP.text

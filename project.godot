@@ -24,11 +24,19 @@ Networking="*res://autoload/Autoload-Networking.gd"
 DeathMessages="*res://autoload/Autoload-DeathMessages.gd"
 UsefulFunctions="*res://autoload/Autoload-UsefulFunctions.gd"
 
+[copy_files_on_export]
+
+files=Array[PackedStringArray]([PackedStringArray("res://Launch Server.bat", "Launch Server.bat", "")])
+
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/vsync/vsync_mode=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/copy_files_on_export/plugin.cfg")
 
 [global]
 
