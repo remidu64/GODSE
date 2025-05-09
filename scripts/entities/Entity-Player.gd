@@ -60,6 +60,8 @@ func _ready():
 	if not is_multiplayer_authority():
 		return
 	
+	Global.hit.connect(play_hitmarker)
+	
 	print(str(name).to_int())
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -76,8 +78,6 @@ func _ready():
 	Global.Player = self
 	DEFAULT_GUN_POS = truegunpos.position # gas station sushi
 	Global.player_loaded.emit()
-
-	
 
 func _exit_tree() -> void:
 	if not is_multiplayer_authority():
@@ -233,3 +233,8 @@ func check_if_can_move():
 		return false
 	
 	return true
+	
+func play_hitmarker(shooter):
+	if self.name == shooter.name:
+		hitmarker.play()
+		$HUD/HitMarker.self_modulate = Color(1.0, 1.0, 1.0, 1.0)

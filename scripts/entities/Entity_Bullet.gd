@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 			i.velocity.x -= sin(rotation.y) * knockback
 			i.velocity.z -= cos(rotation.y) * knockback
 			i.velocity.y += knockback
-			# shooter.hitmarker.play()
+			Global.hit.emit(shooter)
 		if i.is_in_group("map"):
 			queue_free()
 	look_at(global_position + linear_velocity + TINY_VECTOR)
