@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera
-@onready var gun: MeshInstance3D = $GunPos/Gun
+@onready var gun: Node3D = $GunPos/Gun
 @onready var gunpos: Node3D = $GunPos
 @onready var truegunpos: Node3D = $Head/Camera/TrueGunPos
 @onready var raycast: RayCast3D = $Head/Camera/RayCast3D
@@ -77,10 +77,12 @@ func _ready():
 	# set the player variable in Global (Autoload-Global.gd)
 	Global.Player = self
 	DEFAULT_GUN_POS = truegunpos.position # gas station sushi
+	optionsMenu.change_quit_visibility()
 	Global.player_loaded.emit()
 
 func _exit_tree() -> void:
 	if not is_multiplayer_authority():
+		
 		return
 	
 	# reset the player variable in Global (Autoload-Global.gd) once the player leaves the game
@@ -200,7 +202,6 @@ func _physics_process(delta: float) -> void:
 			velocity.x += ACCELERATION * direction.x * 0.05
 			velocity.z += ACCELERATION * direction.z * 0.05
 	
-			
 	# p h y s i c s
 	move_and_slide()
 
@@ -226,6 +227,7 @@ func shoot():
 	bullet.damage = 10
 	bullet.knockback = 5
 	bullet.shooter = self
+	bullet.start_speed = 50
 	Global.firin.emit(bullet)
 
 func check_if_can_move():

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dftl17faobr1d"]
+
+[ext_resource type="Script" uid="uid://sq5iitmdgbi8" path="res://scripts/entities/Entity_Gun.gd" id="1_55q8f"]
+
+[node name="Entity-gun" type="Node3D"]
+script = ExtResource("1_55q8f")

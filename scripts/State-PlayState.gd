@@ -16,7 +16,6 @@ func _ready():
 	
 	toggle_shadows()
 		
-
 func remove_player(id):
 	var player = get_node_or_null(str(id))
 	if player:

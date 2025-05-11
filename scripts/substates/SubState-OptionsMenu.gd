@@ -1,6 +1,7 @@
 extends Control
 
 @onready var tab_container: TabContainer = $TabContainer
+@onready var quit: Button = $Quit
 
 @export var inGame:bool = false
 
@@ -13,3 +14,6 @@ func exit_menu():
 	
 	if !inGame:
 		pass # will change all this when we have a main menu and shit like that ykyk
+		
+func change_quit_visibility() -> void:
+	quit.visible = not quit.visible
