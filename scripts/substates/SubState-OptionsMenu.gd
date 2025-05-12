@@ -17,3 +17,6 @@ func exit_menu():
 		
 func change_quit_visibility() -> void:
 	quit.visible = not quit.visible
+	
+func _on_quit_pressed() -> void:
+	multiplayer.multiplayer_peer.disconnect_peer(1)

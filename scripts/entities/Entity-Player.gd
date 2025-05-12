@@ -76,18 +76,13 @@ func _ready():
 	
 	# set the player variable in Global (Autoload-Global.gd)
 	Global.Player = self
+	
 	DEFAULT_GUN_POS = truegunpos.position # gas station sushi
 	optionsMenu.change_quit_visibility()
-	Global.player_loaded.emit()
-
-func _exit_tree() -> void:
-	if not is_multiplayer_authority():
-		
-		return
 	
-	# reset the player variable in Global (Autoload-Global.gd) once the player leaves the game
-	# (yeah its useless rn)
-	Global.Player = null
+	Global.leaving.connect(leave)
+	
+	Global.player_loaded.emit()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -240,3 +235,10 @@ func play_hitmarker(shooter):
 	if self.name == shooter.name:
 		hitmarker.play()
 		$HUD/HitMarker.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+		
+func leave():
+	if multiplayer.is_server():
+		return
+	if not is_multiplayer_authority():
+		return
+	Networking.remove_player(self)

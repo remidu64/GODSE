@@ -29,7 +29,7 @@ func add_player(id):
 	
 func add_server(id):
 	var server_dummy = Server_Dummy.instantiate()
-	server_dummy.name = str(id)+'SERVER'
+	server_dummy.name = str(id)
 	add_child(server_dummy)
 
 func toggle_shadows():

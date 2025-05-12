@@ -3,9 +3,12 @@ extends Node3D
 @onready var menu: CanvasLayer = $"OptionsHud"
 @onready var playercount: Label = $"OptionsHud/DSMenu/Label"
 
+func _exit_tree() -> void:
+	Networking.remove_server_request.emit()
+
 func _ready() -> void:
 	if not multiplayer.is_server():
-		return
+		return 
 	menu.visible = true
 	Engine.max_fps = 30
 		

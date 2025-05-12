@@ -23,6 +23,7 @@ Options="*res://autoload/Autoload-Options.gd"
 Networking="*res://autoload/Autoload-Networking.gd"
 DeathMessages="*res://autoload/Autoload-DeathMessages.gd"
 UsefulFunctions="*res://autoload/Autoload-UsefulFunctions.gd"
+Guns="*res://autoload/Autoload-Guns.gd"
 
 [copy_files_on_export]
 

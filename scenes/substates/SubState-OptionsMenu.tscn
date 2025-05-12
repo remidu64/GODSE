@@ -106,3 +106,5 @@ offset_bottom = 108.0
 grow_horizontal = 0
 scale = Vector2(0.5, 0.5)
 icon = ExtResource("4_of8pa")
+
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
