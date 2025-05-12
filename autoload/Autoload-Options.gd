@@ -6,6 +6,7 @@ signal changed()
 var sensitivity = 0.5
 var fov = 75
 var shadows = true
+var fps = false
 
 func get_option(str:String):
 	match str:
@@ -15,6 +16,8 @@ func get_option(str:String):
 			return sensitivity
 		"Shadows":
 			return shadows
+		"FPS":
+			return fps
 
 func set_option(str:String, value):
 	match str:
@@ -24,4 +27,6 @@ func set_option(str:String, value):
 			sensitivity = float(value)
 		"Shadows":
 			shadows = bool(value)
+		"FPS":
+			fps = bool(value)
 	changed.emit()

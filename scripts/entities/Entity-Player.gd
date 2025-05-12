@@ -10,9 +10,9 @@ extends CharacterBody3D
 @onready var nametag: Label3D = $Nametag
 @onready var healthtag: Label3D = $Healthtag
 @onready var hitmarker: AudioStreamPlayer = $Sounds/hitmarker
-
 @onready var optionsHud: CanvasLayer = $OptionsHud
 @onready var optionsMenu: Control = $OptionsHud/OptionsMenu
+@onready var fps: Label = $HUD/FPS
 
 # global variables
 
@@ -165,11 +165,11 @@ func _physics_process(delta: float) -> void:
 	# And also handle air friction and floor friction
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		velocity.x *= 1-AIR_FRICTION
-		velocity.z *= 1-AIR_FRICTION
+		velocity.x *= (1 - AIR_FRICTION)
+		velocity.z *= (1 - AIR_FRICTION)
 	else:
-		velocity.x *= 1-FRICTION
-		velocity.z *= 1-FRICTION
+		velocity.x *= (1 - FRICTION)
+		velocity.z *= (1 - FRICTION)
 		
 	# Get player movement vector
 	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
@@ -196,6 +196,13 @@ func _physics_process(delta: float) -> void:
 		elif direction:
 			velocity.x += ACCELERATION * direction.x * 0.05
 			velocity.z += ACCELERATION * direction.z * 0.05
+			
+		
+	if Options.fps:
+		fps.text = "%s FPS" % Engine.get_frames_per_second()
+		fps.visible = true
+	else:
+		fps.visible = false
 	
 	# p h y s i c s
 	move_and_slide()

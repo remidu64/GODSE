@@ -117,6 +117,11 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_ybmsl")
 
+[node name="FPS" type="Label" parent="HUD"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+
 [node name="OptionsHud" type="CanvasLayer" parent="."]
 visible = false
 
