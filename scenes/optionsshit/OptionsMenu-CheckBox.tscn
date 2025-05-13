@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://d02c5eh6ol7hj"]
+[gd_scene load_steps=3 format=3 uid="uid://d02c5eh6ol7hj"]
 
+[ext_resource type="Theme" uid="uid://bb5w4ji6i8k46" path="res://assets/theme.theme" id="1_d5yvk"]
 [ext_resource type="Script" uid="uid://k8dhu3avypkv" path="res://scripts/optionsshit/OptionsMenu-CheckBox.gd" id="1_f4pfg"]
 
 [node name="OptionsMenu-CheckBox" type="CheckBox"]
 offset_right = 24.0
 offset_bottom = 24.0
+theme = ExtResource("1_d5yvk")
 script = ExtResource("1_f4pfg")

@@ -30,6 +30,7 @@ func remove_player(id):
 	remove_player_request.emit(id)
 	if id == 1:
 		Global.Player = null
+		Global.HUD.visible = false
 		get_tree().change_scene_to_file("res://scenes/State-MainMenuState.tscn")
 	
 func remove_server():

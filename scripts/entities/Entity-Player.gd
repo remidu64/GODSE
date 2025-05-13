@@ -13,8 +13,6 @@ extends CharacterBody3D
 @onready var optionsHud: CanvasLayer = $OptionsHud
 @onready var optionsMenu: Control = $OptionsHud/OptionsMenu
 @onready var fps: Label = $HUD/FPS
-@onready var hpbar: Control = $HUD/HealthBar
-
 # global variables
 
 var inOptions = false
@@ -25,8 +23,8 @@ var adsing = false
 var sensitivity = float(Options.sensitivity)
 
 # synced variables
-@export var health: float = own_health
-@export var max_health: float = own_max_health
+@export var health: float = 100.0
+@export var max_health: float = 100.0
 @export var player_name = "john GODSE"
 
 
@@ -121,8 +119,6 @@ func _physics_process(delta: float) -> void:
 	
 	camera.make_current()
 	
-	hpbar.bar_size = health / max_health
-	
 	target_fov = float(Options.fov)
 	sensitivity = float(Options.sensitivity)
 	if running:
@@ -137,12 +133,12 @@ func _physics_process(delta: float) -> void:
 	camera.fov = lerp(camera.fov, target_fov, 15 * delta)
 	
 	if position.y < -100:
-		health = 0
+		Global.Health = 0
 	
-	if health <= 0:
+	if Global.Health <= 0:
 		position = Vector3(randf_range(-10, 10), 1, randi_range(-10, 10))
 		velocity = Vector3.ZERO
-		health = max_health	
+		Global.Health = Global.Max_Health	
 		
 	$HUD/HitMarker.self_modulate = lerp($HUD/HitMarker.self_modulate, Color(1.0, 1.0, 1.0, 0.0), 14.0 * delta)
 	
@@ -206,6 +202,9 @@ func _physics_process(delta: float) -> void:
 		fps.visible = true
 	else:
 		fps.visible = false
+		
+	health = Global.Health
+	max_health = Global.Max_Health
 	
 	# p h y s i c s
 	move_and_slide()
@@ -241,7 +240,7 @@ func check_if_can_move():
 	
 	return true
 	
-func play_hitmarker(shooter):
+func play_hitmarker(shooter, _a, _b):
 	if self.name == shooter.name:
 		hitmarker.play()
 		$HUD/HitMarker.self_modulate = Color(1.0, 1.0, 1.0, 1.0)

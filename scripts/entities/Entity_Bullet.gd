@@ -16,11 +16,10 @@ func _physics_process(delta: float) -> void:
 	for i in get_colliding_bodies():
 		if i is CharacterBody3D:
 			queue_free()
-			i.health -= damage
 			i.velocity.x -= sin(rotation.y) * knockback
 			i.velocity.z -= cos(rotation.y) * knockback
 			i.velocity.y += knockback
-			Global.hit.emit(shooter)
+			Global.hit.emit(shooter, i, damage)
 		if i.is_in_group("map"):
 			queue_free()
 	if global_position + linear_velocity != global_position:

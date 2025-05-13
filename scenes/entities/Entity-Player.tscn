@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bmfga3wqtkk6i" path="res://scripts/entities/Entity-Player.gd" id="1_g13of"]
 [ext_resource type="Texture2D" uid="uid://c5kv8sb3o1uvk" path="res://assets/sprites/hud/crosshairs/hitmarker.png" id="2_1bx53"]
+[ext_resource type="FontFile" uid="uid://fbem0s06kkud" path="res://assets/font/Comic Sans MS.ttf" id="2_dxn7r"]
 [ext_resource type="PackedScene" uid="uid://dftl17faobr1d" path="res://scenes/entities/Entity-Gun.tscn" id="2_opunm"]
 [ext_resource type="PackedScene" uid="uid://2wdygwbi2mlj" path="res://scenes/substates/SubState-OptionsMenu.tscn" id="2_v1vfl"]
 [ext_resource type="Texture2D" uid="uid://dyfsrqesqm46g" path="res://assets/sprites/hud/crosshairs/crosshair1.png" id="2_ybmsl"]
-[ext_resource type="PackedScene" uid="uid://b83eq1hi6gnkn" path="res://scenes/hud/HUD-Health_Bar.tscn" id="5_o8i5w"]
 [ext_resource type="AudioStream" uid="uid://bri2qcnimoh1n" path="res://assets/sounds/hitmarkers/godse_hitmarker_v1.ogg" id="7_dxn7r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2m2ha"]
@@ -45,10 +45,12 @@ script = ExtResource("1_g13of")
 [node name="Nametag" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.53317, 0)
 text = "test"
+font = ExtResource("2_dxn7r")
 
 [node name="Healthtag" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31986, 0)
 text = "test"
+font = ExtResource("2_dxn7r")
 
 [node name="GunPos" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.605695, 1.30082, 0)
@@ -122,17 +124,6 @@ texture = ExtResource("2_ybmsl")
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 23.0
-
-[node name="HealthBar" parent="HUD" instance=ExtResource("5_o8i5w")]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -30.0
-offset_right = 10.0
-offset_bottom = -30.0
-grow_vertical = 0
 
 [node name="OptionsHud" type="CanvasLayer" parent="."]
 visible = false

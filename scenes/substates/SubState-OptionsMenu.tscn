@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://2wdygwbi2mlj"]
+[gd_scene load_steps=6 format=3 uid="uid://2wdygwbi2mlj"]
 
 [ext_resource type="Script" uid="uid://cfvs8rjqs5hgp" path="res://scripts/substates/SubState-OptionsMenu.gd" id="1_1axyh"]
+[ext_resource type="Theme" uid="uid://bb5w4ji6i8k46" path="res://assets/theme.theme" id="1_nd8ba"]
 [ext_resource type="PackedScene" uid="uid://j416ksyocb8y" path="res://scenes/optionsshit/OptionsMenu-Slider.tscn" id="2_1m7gb"]
 [ext_resource type="PackedScene" uid="uid://d02c5eh6ol7hj" path="res://scenes/optionsshit/OptionsMenu-CheckBox.tscn" id="3_2xwod"]
 [ext_resource type="Texture2D" uid="uid://dnvg50dcj6q2l" path="res://assets/sprites/hud/quit.png" id="4_of8pa"]
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_nd8ba")
 script = ExtResource("1_1axyh")
 
 [node name="ColorRect" type="ColorRect" parent="."]
