@@ -13,6 +13,7 @@ extends CharacterBody3D
 @onready var optionsHud: CanvasLayer = $OptionsHud
 @onready var optionsMenu: Control = $OptionsHud/OptionsMenu
 @onready var fps: Label = $HUD/FPS
+@onready var hpbar: TextureProgressBar = $HUD/HealthBar
 
 # global variables
 
@@ -24,8 +25,8 @@ var adsing = false
 var sensitivity = float(Options.sensitivity)
 
 # synced variables
-@export var health: int = 100
-@export var max_health: int = 100
+@export var health: float = 100.0
+@export var max_health: float = 100.0
 @export var player_name = "john GODSE"
 
 
@@ -119,6 +120,8 @@ func _physics_process(delta: float) -> void:
 	# CODE BELOW ONLY RUNS FOR CURRENT PLAYER
 	
 	camera.make_current()
+	
+	hpbar.value = health
 	
 	target_fov = float(Options.fov)
 	sensitivity = float(Options.sensitivity)
