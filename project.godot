@@ -27,7 +27,7 @@ Guns="*res://autoload/Autoload-Guns.gd"
 
 [copy_files_on_export]
 
-files=Array[PackedStringArray]([PackedStringArray("res://Launch Server.bat", "Launch Server.bat", "")])
+files=Array[PackedStringArray]([PackedStringArray("res://Launch_Server.bat", "Launch Server.bat", ""), PackedStringArray("res://Launch_GODSE_with_Vulkan.bat", "Launch_GODSE_with_Vulkan.bat", "")])
 
 [display]
 

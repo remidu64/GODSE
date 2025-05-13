@@ -61,8 +61,6 @@ func _ready():
 	
 	Global.hit.connect(play_hitmarker)
 	
-	print(str(name).to_int())
-	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.make_current()
 	
