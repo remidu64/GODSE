@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://b83eq1hi6gnkn"]
+
+[ext_resource type="Script" uid="uid://dkjv5e817kci2" path="res://scripts/hud/HUD-Heath_Bar.gd" id="1_lx8t2"]
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_lx8t2")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 20.0
+scale = Vector2(1.1501, 0.940469)
+color = Color(0, 0, 0, 1)
+
+[node name="Bar" type="ColorRect" parent="Background"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 98.0
+offset_bottom = 18.0
+color = Color(1, 0, 0, 1)

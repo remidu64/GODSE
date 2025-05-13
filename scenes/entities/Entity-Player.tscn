@@ -1,12 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://2t0235x02uih"]
+[gd_scene load_steps=11 format=3 uid="uid://2t0235x02uih"]
 
 [ext_resource type="Script" uid="uid://bmfga3wqtkk6i" path="res://scripts/entities/Entity-Player.gd" id="1_g13of"]
 [ext_resource type="Texture2D" uid="uid://c5kv8sb3o1uvk" path="res://assets/sprites/hud/crosshairs/hitmarker.png" id="2_1bx53"]
 [ext_resource type="PackedScene" uid="uid://dftl17faobr1d" path="res://scenes/entities/Entity-Gun.tscn" id="2_opunm"]
 [ext_resource type="PackedScene" uid="uid://2wdygwbi2mlj" path="res://scenes/substates/SubState-OptionsMenu.tscn" id="2_v1vfl"]
 [ext_resource type="Texture2D" uid="uid://dyfsrqesqm46g" path="res://assets/sprites/hud/crosshairs/crosshair1.png" id="2_ybmsl"]
-[ext_resource type="Texture2D" uid="uid://1aotfn03uspi" path="res://assets/sprites/hud/hp bar background.png" id="5_o8i5w"]
-[ext_resource type="Texture2D" uid="uid://duhy6f2psduap" path="res://assets/sprites/hud/hp bar.png" id="6_wiice"]
+[ext_resource type="PackedScene" uid="uid://b83eq1hi6gnkn" path="res://scenes/hud/HUD-Health_Bar.tscn" id="5_o8i5w"]
 [ext_resource type="AudioStream" uid="uid://bri2qcnimoh1n" path="res://assets/sounds/hitmarkers/godse_hitmarker_v1.ogg" id="7_dxn7r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2m2ha"]
@@ -124,21 +123,16 @@ layout_mode = 1
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="HealthBar" type="TextureProgressBar" parent="HUD"]
+[node name="HealthBar" parent="HUD" instance=ExtResource("5_o8i5w")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = -30.0
-offset_right = 110.0
-offset_bottom = -10.0
+offset_right = 10.0
+offset_bottom = -30.0
 grow_vertical = 0
-step = 0.1
-value = 100.0
-allow_greater = true
-texture_under = ExtResource("5_o8i5w")
-texture_progress = ExtResource("6_wiice")
 
 [node name="OptionsHud" type="CanvasLayer" parent="."]
 visible = false
