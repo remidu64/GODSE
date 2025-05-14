@@ -17,13 +17,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameInfo="*res://autoload/Autoload-GameInfo.gd"
-Global="*res://autoload/Autoload-Global.tscn"
-Options="*res://autoload/Autoload-Options.gd"
-Networking="*res://autoload/Autoload-Networking.gd"
-DeathMessages="*res://autoload/Autoload-DeathMessages.gd"
-UsefulFunctions="*res://autoload/Autoload-UsefulFunctions.gd"
-Guns="*res://autoload/Autoload-Guns.gd"
+GameInfo="*res://assets/autoload/Autoload-GameInfo.gd"
+Global="*res://assets/autoload/Autoload-Global.tscn"
+Options="*res://assets/autoload/Autoload-Options.gd"
+Networking="*res://assets/autoload/Autoload-Networking.gd"
+DeathMessages="*res://assets/autoload/Autoload-DeathMessages.gd"
+UsefulFunctions="*res://assets/autoload/Autoload-UsefulFunctions.gd"
+Guns="*res://assets/autoload/Autoload-Guns.gd"
 
 [copy_files_on_export]
 

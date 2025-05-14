@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://sxt3dq17sw8a"]
+[gd_scene load_steps=3 format=3 uid="uid://sxt3dq17sw8a"]
 
-[ext_resource type="Theme" uid="uid://bb5w4ji6i8k46" path="res://assets/theme.theme" id="1_joo2d"]
+[ext_resource type="FontFile" uid="uid://fbem0s06kkud" path="res://assets/font/Comic Sans MS.ttf" id="1_joo2d"]
+
+[sub_resource type="Theme" id="Theme_yunyi"]
+default_font = ExtResource("1_joo2d")
 
 [node name="DSMenu" type="Control"]
 layout_mode = 3
@@ -9,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_joo2d")
+theme = SubResource("Theme_yunyi")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

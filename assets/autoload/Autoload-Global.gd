@@ -8,7 +8,6 @@ signal leaving
 
 @onready var HUD: Control = $Game_HUD
 @onready var Health_Bar: Control = $Game_HUD/HealthBar
-@onready var Health_Num: Label = $Game_HUD/HealthBar/Health
 
 # player node, set in Entity-Player.gd
 var Player = null
@@ -24,8 +23,8 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	if HUD.visible:
-		Health_Bar.bar_size = Health / Max_Health
-		Health_Num.text = str(int(Health))
+		Health_Bar.hp = Health
+		Health_Bar.max_hp = Max_Health
 		
 func set_player_name():
 	Player.player_name = Name

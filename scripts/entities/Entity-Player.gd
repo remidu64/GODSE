@@ -13,6 +13,7 @@ extends CharacterBody3D
 @onready var optionsHud: CanvasLayer = $OptionsHud
 @onready var optionsMenu: Control = $OptionsHud/OptionsMenu
 @onready var fps: Label = $HUD/FPS
+
 # global variables
 
 var inOptions = false
@@ -21,6 +22,7 @@ var target_fov = float(Options.fov)
 var running = false
 var adsing = false
 var sensitivity = float(Options.sensitivity)
+var regen: float = 3.0/60.0
 
 # synced variables
 @export var health: float = 100.0
@@ -109,13 +111,16 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_multiplayer_authority():
 		# CODE HERE ONLY RUNS FOR OTHER PLAYERS
-		healthtag.text = "%s / %s" % [health, max_health]
+		healthtag.text = "%s / %s" % [int(health), int(max_health)]
 		# CODE HERE ONLY RUNS FOR OTHER PLAYERS
 		return
 		
 	# CODE BELOW ONLY RUNS FOR CURRENT PLAYER
 	
 	camera.make_current()
+	
+	health = Global.Health
+	max_health = Global.Max_Health
 	
 	target_fov = float(Options.fov)
 	sensitivity = float(Options.sensitivity)
@@ -201,8 +206,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		fps.visible = false
 		
-	health = Global.Health
-	max_health = Global.Max_Health
+	Global.Health += regen
+	
+	if Global.Health > Global.Max_Health:
+		Global.Health = Global.Max_Health
 	
 	# p h y s i c s
 	move_and_slide()
