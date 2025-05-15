@@ -27,7 +27,7 @@ func add_player(id):
 	newPlayer.add_to_group("players")
 	add_child(newPlayer)
 	
-func add_server(id):
+func add_server(id):	
 	var server_dummy = Server_Dummy.instantiate()
 	server_dummy.name = str(id)
 	add_child(server_dummy)

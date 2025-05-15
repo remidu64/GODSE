@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1vifmptrwkrj"]
+
+[ext_resource type="Script" uid="uid://dawe4pct7b310" path="res://autoload/Autoload-Global.gd" id="1_f6n0l"]
+[ext_resource type="PackedScene" uid="uid://b83eq1hi6gnkn" path="res://scenes/hud/HUD-Health_Bar.tscn" id="2_jux7t"]
+
+[node name="Global" type="Node"]
+script = ExtResource("1_f6n0l")
+
+[node name="Game_HUD" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" parent="Game_HUD" instance=ExtResource("2_jux7t")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -59.0
+offset_right = 15.0
+offset_bottom = -59.0
+grow_vertical = 0
