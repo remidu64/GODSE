@@ -13,6 +13,8 @@ extends CharacterBody3D
 @onready var optionsHud: CanvasLayer = $OptionsHud
 @onready var optionsMenu: Control = $OptionsHud/OptionsMenu
 @onready var fps: Label = $HUD/FPS
+@onready var background: Sprite3D = $Healthtag/Healthbarbackground
+@onready var hpbar: Sprite3D = $Healthtag/Healthbarbackground/Healthbar
 
 # global variables
 
@@ -22,7 +24,7 @@ var target_fov = float(Options.fov)
 var running = false
 var adsing = false
 var sensitivity = float(Options.sensitivity)
-var regen: float = 3.0/60.0
+var regen: float = 3.0
 
 # synced variables
 @export var health: float = 100.0
@@ -56,8 +58,6 @@ func _enter_tree() -> void:
 func _ready():
 	if multiplayer.is_server():
 		return
-	nametag.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	healthtag.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	if not is_multiplayer_authority():
 		return
 	
@@ -112,6 +112,7 @@ func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		# CODE HERE ONLY RUNS FOR OTHER PLAYERS
 		healthtag.text = "%s / %s" % [int(health), int(max_health)]
+		hpbar.scale = Vector3(health/max_health, 1, 1)
 		# CODE HERE ONLY RUNS FOR OTHER PLAYERS
 		return
 		
@@ -206,7 +207,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		fps.visible = false
 		
-	Global.Health += regen
+	Global.Health += regen/60.0
 	
 	if Global.Health > Global.Max_Health:
 		Global.Health = Global.Max_Health
