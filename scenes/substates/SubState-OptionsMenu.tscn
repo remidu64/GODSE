@@ -99,6 +99,13 @@ tooltip_text = "if on, real time shadows will, you know, do the real time shadow
 fucks up performance, disabling it makes the game look like hot garbage and should probably be considered cheating since the game is basically full bright (until we add baked lighting)"
 Property = "Shadows"
 
+[node name="Fullscreen" parent="TabContainer/Graphics/VBoxContainer" instance=ExtResource("3_2xwod")]
+layout_mode = 2
+tooltip_text = "if on, real time shadows will, you know, do the real time shadow things
+
+fucks up performance, disabling it makes the game look like hot garbage and should probably be considered cheating since the game is basically full bright (until we add baked lighting)"
+Property = "Fullscreen"
+
 [node name="Misc" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2

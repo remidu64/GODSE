@@ -7,6 +7,7 @@ var sensitivity = 0.5
 var fov = 75
 var shadows = true
 var fps = false
+var fullscreen = false
 
 func get_option(str:String):
 	match str:
@@ -18,6 +19,8 @@ func get_option(str:String):
 			return shadows
 		"FPS":
 			return fps
+		"Fullscreen":
+			return fullscreen
 
 func set_option(str:String, value):
 	match str:
@@ -29,4 +32,7 @@ func set_option(str:String, value):
 			shadows = bool(value)
 		"FPS":
 			fps = bool(value)
+		"Fullscreen":
+			fullscreen = bool(value)
+			
 	changed.emit()

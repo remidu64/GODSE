@@ -34,6 +34,10 @@ func add_server(id):
 
 func toggle_shadows():
 	SunLight.shadow_enabled = Options.shadows
+	if Options.fullscreen:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED) 
 	
 func spawn_bullet(projectile):
 	add_child(projectile)
