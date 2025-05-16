@@ -10,6 +10,8 @@ extends Control
 func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
 	versionLabel.text = "GODSE v%s" % GameInfo.gameVersion
+	set_option()
+	Options.changed.connect(set_option)
 	if DisplayServer.get_name() == "headless":
 		Networking.ip = "localhost"
 		Networking.host_server()
@@ -37,3 +39,9 @@ func _on_host_pressed() -> void:
 func _on_options_pressed() -> void:
 	mainmenu.visible = false
 	optionsmenu.visible = true
+	
+func set_option():
+	if Options.fullscreen:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

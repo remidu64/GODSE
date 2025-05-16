@@ -101,9 +101,7 @@ Property = "Shadows"
 
 [node name="Fullscreen" parent="TabContainer/Graphics/VBoxContainer" instance=ExtResource("3_2xwod")]
 layout_mode = 2
-tooltip_text = "if on, real time shadows will, you know, do the real time shadow things
-
-fucks up performance, disabling it makes the game look like hot garbage and should probably be considered cheating since the game is basically full bright (until we add baked lighting)"
+tooltip_text = "If on, simply sets the game to fullscreen"
 Property = "Fullscreen"
 
 [node name="Misc" type="TabBar" parent="TabContainer"]
@@ -120,9 +118,7 @@ theme_override_constants/separation = 20
 
 [node name="FPS" parent="TabContainer/Misc/VBoxContainer" instance=ExtResource("3_2xwod")]
 layout_mode = 2
-tooltip_text = "if on, real time shadows will, you know, do the real time shadow things
-
-fucks up performance, disabling it makes the game look like hot garbage and should probably be considered cheating since the game is basically full bright (until we add baked lighting)"
+tooltip_text = "If on, adds an FPS counter at the top left of the screen"
 Property = "FPS"
 
 [node name="Quit" type="Button" parent="."]

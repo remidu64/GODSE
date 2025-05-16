@@ -1,9 +1,11 @@
 extends Node
 
-var save_path = "user://config.cfg"
+const save_path = "user://config.cfg"
 var config = ConfigFile.new()
 
 func _ready() -> void:
+	if DisplayServer.get_name() == "headless":
+		return
 	if config.load(save_path) != OK:
 		push_error("user://config.cfg doesnt exist or wasnt loaded properly, creating a new config file")
 		config.save(save_path)
