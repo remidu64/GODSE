@@ -4,3 +4,5 @@
 
 [node name="Entity-gun" type="Node3D"]
 script = ExtResource("1_55q8f")
+
+[node name="Gun_Mesh" type="MeshInstance3D" parent="."]
