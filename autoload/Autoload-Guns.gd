@@ -10,7 +10,8 @@ var ads_zoom: float
 	
 var model
 
-func init(_damage, _muzzle_velocity, _model):
+func init(_damage: float, _muzzle_velocity: float, _model: PackedScene):
 	damage = _damage
 	muzzle_velocity = _muzzle_velocity
 	model = _model
+	return [damage, muzzle_velocity, model]

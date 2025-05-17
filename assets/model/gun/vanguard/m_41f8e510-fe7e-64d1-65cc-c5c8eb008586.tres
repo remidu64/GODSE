@@ -1,7 +1,0 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b2y7scnt84liq"]
-
-[ext_resource type="Texture2D" path="res://assets/model/gun/vanguard/dart.png" id="1_myc0d"]
-
-[resource]
-resource_name = "m_41f8e510-fe7e-64d1-65cc-c5c8eb008586"
-albedo_texture = ExtResource("1_myc0d")

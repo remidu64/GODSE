@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck8c7cp2dmu0s"
-path.s3tc="res://.godot/imported/firestrike_Image_1.png-c0bab69a9a26ea24c9a98c7cbbcec3b2.s3tc.ctex"
+uid="uid://ir2v7yh625yj"
+path.s3tc="res://.godot/imported/dart.png-7c885747edb4b24f14ebd826fd4ce754.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "36caca2ae17e1a1e1cf123b2fa927fa8"
-}
 
 [deps]
 
-source_file="res://assets/model/gun/firestrike/firestrike_Image_1.png"
-dest_files=["res://.godot/imported/firestrike_Image_1.png-c0bab69a9a26ea24c9a98c7cbbcec3b2.s3tc.ctex"]
+source_file="res://assets/model/gun/roughcut/dart.png"
+dest_files=["res://.godot/imported/dart.png-7c885747edb4b24f14ebd826fd4ce754.s3tc.ctex"]
 
 [params]
 

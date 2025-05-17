@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://dftl17faobr1d"]
 
 [ext_resource type="Script" uid="uid://sq5iitmdgbi8" path="res://scripts/entities/Entity_Gun.gd" id="1_55q8f"]
-[ext_resource type="ArrayMesh" uid="uid://70y7du7hxpa3" path="res://assets/model/gun/roughcut/roughcut.obj" id="2_5i2dh"]
+[ext_resource type="PackedScene" uid="uid://didmvookkjsac" path="res://assets/model/gun/vanguard/vanguard.glb" id="2_5i2dh"]
 
 [node name="Entity-gun" type="Node3D"]
 script = ExtResource("1_55q8f")
 
 [node name="Gun_Mesh" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_5i2dh")
+
+[node name="vanguard" parent="." instance=ExtResource("2_5i2dh")]
