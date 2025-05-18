@@ -3,9 +3,9 @@ extends Node
 @onready var health_bar: TextureProgressBar = $HealthBar
 @onready var health_num: Label = $Health
 
-var hp = 1
-var max_hp = 1
-var ratio = 0
+var hp: float = 1
+var max_hp: float = 1
+var ratio: float = 0
 
 func _physics_process(delta: float) -> void:
 	ratio = hp/max_hp

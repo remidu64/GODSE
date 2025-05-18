@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ir2v7yh625yj"
-path.s3tc="res://.godot/imported/dart.png-7c885747edb4b24f14ebd826fd4ce754.s3tc.ctex"
+uid="uid://fgensk4o33fu"
+path.s3tc="res://.godot/imported/untitled_Image_1.png-673f84a8e97326543b5b73d009188b85.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "36caca2ae17e1a1e1cf123b2fa927fa8"
+}
 
 [deps]
 
-source_file="res://assets/model/gun/roughcut/dart.png"
-dest_files=["res://.godot/imported/dart.png-7c885747edb4b24f14ebd826fd4ce754.s3tc.ctex"]
+source_file="res://assets/gun/roughcut/untitled_Image_1.png"
+dest_files=["res://.godot/imported/untitled_Image_1.png-673f84a8e97326543b5b73d009188b85.s3tc.ctex"]
 
 [params]
 

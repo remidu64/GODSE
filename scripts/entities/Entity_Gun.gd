@@ -1,3 +1,9 @@
 extends Node3D
 
-@onready var mesh: MeshInstance3D = $Gun_Mesh
+const ROUGHCUT = preload("res://scenes/gun/Roughcut.tscn")
+
+@onready var gun: MeshInstance3D = $Gun_Mesh
+
+func _ready() -> void:
+	var roughcut = ROUGHCUT.instantiate()
+	gun.mesh = roughcut.mesh

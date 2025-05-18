@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xwv3qr1v610y"
-path.s3tc="res://.godot/imported/roughcut.png-5c56098debcf7602bd9cc291f5c84851.s3tc.ctex"
+uid="uid://c8ghkwpqiasjq"
+path.s3tc="res://.godot/imported/untitled_Image_0.png-db08711a61728d546851899df385ee28.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "601651e901795a9d191f496fd499603c"
+}
 
 [deps]
 
-source_file="res://assets/model/gun/roughcut/roughcut.png"
-dest_files=["res://.godot/imported/roughcut.png-5c56098debcf7602bd9cc291f5c84851.s3tc.ctex"]
+source_file="res://assets/gun/roughcut/untitled_Image_0.png"
+dest_files=["res://.godot/imported/untitled_Image_0.png-db08711a61728d546851899df385ee28.s3tc.ctex"]
 
 [params]
 
