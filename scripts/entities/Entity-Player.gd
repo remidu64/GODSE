@@ -40,7 +40,6 @@ const JUMP_SPEED_MULTIPLIER: float = 1.35
 const LATERAL_VELOCITY_COEFFICENT: float = 0.05 # How much does moving impact how high you jump
 const FRICTION: float = 0.35
 const AIR_FRICTION: float = 0.01
-const RECOIL: float = 3
 const TINY_VECTOR = Vector3.LEFT * 0.001
 const ADS_ZOOM = 1.5
 const RUN_ZOOM = 0.9
@@ -228,17 +227,20 @@ func shoot():
 	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), randf_range(0.2, 0.4), randf_range(0.25, 0.75))*RECOIL_MULT)
 	gun.transform = gun.transform.rotated(Vector3.RIGHT, randf_range(TAU/16, TAU/12)*RECOIL_MULT) 
 	gun.transform = gun.transform.rotated(Vector3.UP, randf_range(-TAU/22, TAU/22)*RECOIL_MULT)
-	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * RECOIL
-	velocity.y += coeff_y * RECOIL
-	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * RECOIL
-	var bullet = BULLET.instantiate()
-	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
-	bullet.rotation = raycast.global_rotation
-	bullet.damage = 10
-	bullet.knockback = 5
-	bullet.shooter = self
-	bullet.start_speed = 50
-	Global.firin.emit(bullet)
+	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * gun.recoil
+	velocity.y += coeff_y * gun.recoil
+	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * gun.recoil
+	for i in range(0, gun.bullets_per_shot):
+		randomize()
+		var bullet = BULLET.instantiate()
+		bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
+		bullet.rotation = raycast.global_rotation
+		bullet.damage = gun.damage
+		bullet.knockback = gun.knockback
+		bullet.shooter = self
+		bullet.start_speed = gun.muzzle_velocity
+		bullet.spread = get_spread_dir(raycast.get_global_transform_interpolated().basis, gun.spread)
+		Global.firin.emit(bullet)
 
 func check_if_can_move():
 	if inOptions:
@@ -257,3 +259,13 @@ func leave():
 	if not is_multiplayer_authority():
 		return
 	Networking.remove_player(self)
+	
+func get_spread_dir(camera_global_basis : Basis, spread_degrees: float) -> Vector3:
+	var twist : float = randf_range(0, TAU)
+	var axis := Vector3(cos(twist), sin(twist), 0)
+  
+	var angle := (1.0 - sqrt(1.0 - sqrt(randf()))) * deg_to_rad(spread_degrees) # Superior distribution
+  #var angle := sqrt(randf()) * spread_degrees # Uniform spread, use instead if prefered
+  
+  # Negative because cameras in Godot point backwards
+	return -camera_global_basis.z.rotated(camera_global_basis * axis, angle)

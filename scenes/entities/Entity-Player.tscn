@@ -42,6 +42,7 @@ properties/7/spawn = true
 properties/7/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
+collision_mask = 3
 script = ExtResource("1_g13of")
 
 [node name="Healthtag" type="Label3D" parent="."]
