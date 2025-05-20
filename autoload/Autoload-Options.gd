@@ -8,6 +8,7 @@ var fov = 75
 var shadows = true
 var fps = false
 var fullscreen = false
+var shooting_bar = true
 
 func _ready() -> void:
 	if DisplayServer.get_name() == "headless":
@@ -36,6 +37,10 @@ func _ready() -> void:
 		SaveData.save_to_config("Fullscreen", fullscreen)
 	else:
 		fullscreen = SaveData.load_from_config("Fullscreen")
+	if not SaveData.load_from_config("ShootingBar"):
+		SaveData.save_to_config("ShootingBar", shooting_bar)
+	else:
+		fullscreen = SaveData.load_from_config("ShootingBar")
 
 func get_option(str:String):
 	match str:
@@ -49,6 +54,8 @@ func get_option(str:String):
 			return fps
 		"Fullscreen":
 			return fullscreen
+		"ShootingBar":
+			return shooting_bar
 
 func set_option(str:String, value):
 	match str:
@@ -67,5 +74,8 @@ func set_option(str:String, value):
 		"Fullscreen":
 			fullscreen = bool(value)
 			SaveData.save_to_config("Fullscreen", bool(value))
+		"ShootingBar":
+			shooting_bar = bool(value)
+			SaveData.save_to_config("ShootingBar", bool(value))
 			
 	changed.emit()

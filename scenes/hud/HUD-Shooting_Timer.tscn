@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8cs7nl4do4h8"]
+
+[ext_resource type="Theme" uid="uid://bimr6npwhqrju" path="res://assets/theme.theme" id="1_smyh1"]
+[ext_resource type="Script" uid="uid://1rbeakir5x8k" path="res://scripts/hud/HUD-Shoot_Timer_Bar.gd" id="2_oymdg"]
+[ext_resource type="Texture2D" uid="uid://dim6plekptlpb" path="res://assets/sprites/hud/shooting_background.png" id="3_d7xlu"]
+[ext_resource type="Texture2D" uid="uid://byi27q2jtjdt7" path="res://assets/sprites/hud/shooting_timer_bar.png" id="3_oymdg"]
+
+[node name="ShootingTimer" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_smyh1")
+script = ExtResource("2_oymdg")
+
+[node name="ShootingTimerBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+fill_mode = 6
+texture_under = ExtResource("3_d7xlu")
+texture_progress = ExtResource("3_oymdg")
+texture_progress_offset = Vector2(5, 5)
+
+[node name="ShootingTimer" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_smyh1")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+text = "placeholder"
+horizontal_alignment = 1
+vertical_alignment = 1

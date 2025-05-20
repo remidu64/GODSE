@@ -26,6 +26,9 @@ var adsing = false
 var sensitivity = float(Options.sensitivity)
 var regen: float = 3.0
 
+# gun vars
+var shoot_timer: float = 0
+
 # synced variables
 @export var health: float = 100.0
 @export var max_health: float = 100.0
@@ -90,10 +93,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		head.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		camera.rotate_x(deg_to_rad(-event.relative.y * sensitivity))
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-	
-	# shooting
-	if Input.is_action_just_pressed("shoot"):
-		shoot.rpc()
 	
 
 func _physics_process(delta: float) -> void:
@@ -199,6 +198,17 @@ func _physics_process(delta: float) -> void:
 			velocity.x += ACCELERATION * direction.x * 0.05
 			velocity.z += ACCELERATION * direction.z * 0.05
 			
+			# shooting
+		if Input.is_action_just_pressed("shoot") and shoot_timer <= 0:
+			shoot.rpc()
+			shoot_timer = 1/gun.rps
+		
+		if Input.is_action_pressed("shoot") and gun.full_auto and shoot_timer <= 0:
+			shoot.rpc()
+			shoot_timer = 1/gun.rps
+			
+		
+			
 		
 	if Options.fps:
 		fps.text = "%s FPS" % Engine.get_frames_per_second()
@@ -210,6 +220,9 @@ func _physics_process(delta: float) -> void:
 	
 	if Global.Health > Global.Max_Health:
 		Global.Health = Global.Max_Health
+		
+	if shoot_timer > 0:
+		shoot_timer -= delta
 	
 	# p h y s i c s
 	move_and_slide()

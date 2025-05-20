@@ -8,6 +8,7 @@ signal leaving
 
 @onready var HUD: Control = $Game_HUD
 @onready var Health_Bar: Control = $Game_HUD/HealthBar
+@onready var Shooting_Bar: Control = $Game_HUD/ShootingTimer
 
 # player node, set in Entity-Player.gd
 var Player = null
@@ -25,6 +26,9 @@ func _physics_process(delta: float) -> void:
 	if HUD.visible:
 		Health_Bar.hp = Health
 		Health_Bar.max_hp = Max_Health
+		Shooting_Bar.hp = Player.shoot_timer
+		Shooting_Bar.max_hp = 1/Player.gun.rps
+		
 		
 func set_player_name():
 	Player.player_name = Name
