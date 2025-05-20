@@ -1,5 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b83eq1hi6gnkn"]
 
+[ext_resource type="Script" uid="uid://d1fud05mvt58l" path="res://scripts/hud/HUD-Heath_Bar.gd" id="1_lx8t2"]
 [ext_resource type="FontFile" uid="uid://fbem0s06kkud" path="res://assets/font/Comic Sans MS.ttf" id="1_oi5s6"]
 [ext_resource type="Texture2D" uid="uid://b8mg6qjrimn8o" path="res://assets/sprites/hud/background.png" id="3_oi5s6"]
 [ext_resource type="Texture2D" uid="uid://o2upcftesupe" path="res://assets/sprites/hud/health_bar.png" id="4_w7rn7"]
@@ -7,32 +8,11 @@
 [sub_resource type="Theme" id="Theme_yunyi"]
 default_font = ExtResource("1_oi5s6")
 
-[sub_resource type="GDScript" id="GDScript_lx8t2"]
-script/source = "extends Node
-
-@onready var health_bar: TextureProgressBar = $HealthBar
-@onready var health_num: Label = $Health
-
-var hp: float = 1
-var max_hp: float = 1
-var ratio: float = 0
-
-func _physics_process(delta: float) -> void:
-	ratio = hp/max_hp
-	
-	health_bar.value = ratio * 100
-		
-	if ratio <= 0.1:
-		health_num.text = UsefulFunctions.random_string(randi() % 15)
-	else:
-		health_num.text = str(int(hp))+\"/\"+str(int(max_hp))
-"
-
 [node name="HealthBar" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 theme = SubResource("Theme_yunyi")
-script = SubResource("GDScript_lx8t2")
+script = ExtResource("1_lx8t2")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 layout_mode = 0
@@ -50,6 +30,9 @@ offset_left = -1.0
 offset_top = -1.0
 offset_right = 199.0
 offset_bottom = 39.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 22
 text = "placeholder"
 horizontal_alignment = 1

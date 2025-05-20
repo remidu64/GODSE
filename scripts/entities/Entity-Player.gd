@@ -24,10 +24,13 @@ var target_fov = float(Options.fov)
 var running = false
 var adsing = false
 var sensitivity = float(Options.sensitivity)
-var regen: float = 3.0
+var regen: float = 3.0/60.0
 
 # gun vars
 var shoot_timer: float = 0
+var ammo: int = 0
+var reload_timer: float = 0
+var reloading: bool = false
 
 # synced variables
 @export var health: float = 100.0
@@ -83,8 +86,10 @@ func _ready():
 	
 	Global.leaving.connect(leave)
 	
+	ammo = gun.mag_size
+	
 	Global.player_loaded.emit()
-
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -199,16 +204,30 @@ func _physics_process(delta: float) -> void:
 			velocity.z += ACCELERATION * direction.z * 0.05
 			
 			# shooting
-		if Input.is_action_just_pressed("shoot") and shoot_timer <= 0:
-			shoot.rpc()
-			shoot_timer = 1/gun.rps
-		
-		if Input.is_action_pressed("shoot") and gun.full_auto and shoot_timer <= 0:
-			shoot.rpc()
-			shoot_timer = 1/gun.rps
+		if (Input.is_action_just_pressed("shoot") or (Input.is_action_pressed("shoot") and gun.full_auto)) and shoot_timer <= 0:
+			if ammo > 0:
+				reloading = false
+				shoot.rpc()
+				shoot_timer = 1/gun.rps
+				if ammo <= 0:
+					reloading = true
+					reload_timer = gun.time_to_reload
+			elif reload_timer <= 0 and not reloading:
+				reloading = true
+				reload_timer = gun.time_to_reload
 			
-		
+		if Input.is_action_just_pressed("reload"):
+			reload_timer = gun.time_to_reload
+			reloading = not reloading
 			
+			
+	if reloading:
+		reload_timer -= delta
+		if reload_timer <= 0:
+			ammo += gun.ammo_per_reload
+			reload_timer = gun.time_to_reload
+		if ammo >= gun.mag_size:
+			reloading = false
 		
 	if Options.fps:
 		fps.text = "%s FPS" % Engine.get_frames_per_second()
@@ -216,7 +235,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		fps.visible = false
 		
-	Global.Health += regen/60.0
+	Global.Health += regen
 	
 	if Global.Health > Global.Max_Health:
 		Global.Health = Global.Max_Health
@@ -244,16 +263,17 @@ func shoot():
 	velocity.y += coeff_y * gun.recoil
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * gun.recoil
 	for i in range(0, gun.bullets_per_shot):
-		randomize()
-		var bullet = BULLET.instantiate()
-		bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
-		bullet.rotation = raycast.global_rotation
-		bullet.damage = gun.damage
-		bullet.knockback = gun.knockback
-		bullet.shooter = self
-		bullet.start_speed = gun.muzzle_velocity
-		bullet.spread = get_spread_dir(raycast.get_global_transform_interpolated().basis, gun.spread)
-		Global.firin.emit(bullet)
+		if ammo > 0:
+			ammo -= 1
+			var bullet = BULLET.instantiate()
+			bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
+			bullet.rotation = raycast.global_rotation
+			bullet.damage = gun.damage
+			bullet.knockback = gun.knockback
+			bullet.shooter = self
+			bullet.start_speed = gun.muzzle_velocity
+			bullet.spread = get_spread_dir(raycast.get_global_transform_interpolated().basis, gun.spread)
+			Global.firin.emit(bullet)
 
 func check_if_can_move():
 	if inOptions:

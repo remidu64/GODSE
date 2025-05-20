@@ -10,11 +10,6 @@ func _ready():
 	Networking.remove_player_request.connect(remove_player)
 	Networking.add_server_request.connect(add_server)
 	Global.firin.connect(spawn_bullet)
-	if Options.fullscreen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	SunLight.shadow_enabled = Options.shadows
 	Options.changed.connect(toggle_shadows)
 	
 	Global.play_state_loaded.emit()
