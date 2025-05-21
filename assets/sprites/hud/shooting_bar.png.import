@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byi27q2jtjdt7"
-path="res://.godot/imported/shooting_timer_bar.png-4752cbb99f64ecdb421cfeaf801663cb.ctex"
+uid="uid://4yh6ddfh1nfq"
+path="res://.godot/imported/shooting_bar.png-ad4c5cb97d4d135e7bb3c4c3c70e6f16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/hud/shooting_timer_bar.png"
-dest_files=["res://.godot/imported/shooting_timer_bar.png-4752cbb99f64ecdb421cfeaf801663cb.ctex"]
+source_file="res://assets/sprites/hud/shooting_bar.png"
+dest_files=["res://.godot/imported/shooting_bar.png-ad4c5cb97d4d135e7bb3c4c3c70e6f16.ctex"]
 
 [params]
 

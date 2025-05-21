@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://bimr6npwhqrju" path="res://assets/theme.theme" id="1_smyh1"]
 [ext_resource type="Script" uid="uid://1rbeakir5x8k" path="res://scripts/hud/HUD-Shoot_Timer_Bar.gd" id="2_oymdg"]
-[ext_resource type="Texture2D" uid="uid://dim6plekptlpb" path="res://assets/sprites/hud/shooting_background.png" id="3_d7xlu"]
-[ext_resource type="Texture2D" uid="uid://byi27q2jtjdt7" path="res://assets/sprites/hud/shooting_timer_bar.png" id="3_oymdg"]
+[ext_resource type="Texture2D" uid="uid://di4dk550ij8is" path="res://assets/sprites/hud/shooting_background.png" id="3_d7xlu"]
+[ext_resource type="Texture2D" uid="uid://4yh6ddfh1nfq" path="res://assets/sprites/hud/shooting_bar.png" id="4_d7xlu"]
 
 [node name="ShootingTimer" type="Control"]
 layout_mode = 3
@@ -27,7 +27,7 @@ grow_vertical = 2
 value = 100.0
 fill_mode = 6
 texture_under = ExtResource("3_d7xlu")
-texture_progress = ExtResource("3_oymdg")
+texture_progress = ExtResource("4_d7xlu")
 texture_progress_offset = Vector2(5, 5)
 
 [node name="ShootingTimer" type="Label" parent="."]

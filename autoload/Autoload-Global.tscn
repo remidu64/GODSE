@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1vifmptrwkrj"]
+[gd_scene load_steps=6 format=3 uid="uid://c1vifmptrwkrj"]
 
 [ext_resource type="Script" uid="uid://dawe4pct7b310" path="res://autoload/Autoload-Global.gd" id="1_f6n0l"]
 [ext_resource type="PackedScene" uid="uid://c443cj1h2qx0p" path="res://scenes/hud/HUD-Ammo.tscn" id="2_6y155"]
 [ext_resource type="PackedScene" uid="uid://b83eq1hi6gnkn" path="res://scenes/hud/HUD-Health_Bar.tscn" id="2_jux7t"]
 [ext_resource type="PackedScene" uid="uid://c8cs7nl4do4h8" path="res://scenes/hud/HUD-Shooting_Timer.tscn" id="3_nkmmw"]
+[ext_resource type="PackedScene" uid="uid://bnmiywmi5xihs" path="res://scenes/hud/HUD-Reload_Timer.tscn" id="5_4qm0q"]
 
 [node name="Global" type="Node"]
 script = ExtResource("1_f6n0l")
@@ -45,9 +46,28 @@ grow_vertical = 0
 [node name="ShootingTimer" parent="Game_HUD" instance=ExtResource("3_nkmmw")]
 top_level = true
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 45.0
-offset_bottom = 45.0
-grow_horizontal = 2
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -193.0
+offset_top = -223.0
+offset_right = -193.0
+offset_bottom = -223.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ReloadingTimer" parent="Game_HUD" instance=ExtResource("5_4qm0q")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -193.0
+offset_top = -162.0
+offset_right = -193.0
+offset_bottom = -162.0
+grow_horizontal = 0
+grow_vertical = 0

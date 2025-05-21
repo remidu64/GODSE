@@ -28,9 +28,9 @@ var regen: float = 3.0/60.0
 
 # gun vars
 var shoot_timer: float = 0
-var ammo: int = 0
 var reload_timer: float = 0
 var reloading: bool = false
+var ammo: int = 0
 
 # synced variables
 @export var health: float = 100.0
@@ -133,9 +133,6 @@ func _physics_process(delta: float) -> void:
 	if adsing:
 		target_fov /= ADS_ZOOM
 		sensitivity = float(Options.sensitivity) / ADS_ZOOM
-		truegunpos.position = Vector3(-0.031, -0.3, 0)
-	else:
-		truegunpos.position = DEFAULT_GUN_POS
 		
 	camera.fov = lerp(camera.fov, target_fov, 15 * delta)
 	
@@ -207,7 +204,7 @@ func _physics_process(delta: float) -> void:
 		if (Input.is_action_just_pressed("shoot") or (Input.is_action_pressed("shoot") and gun.full_auto)) and shoot_timer <= 0:
 			if ammo > 0:
 				reloading = false
-				shoot.rpc()
+				shoot()
 				shoot_timer = 1/gun.rps
 				if ammo <= 0:
 					reloading = true
@@ -228,6 +225,7 @@ func _physics_process(delta: float) -> void:
 			reload_timer = gun.time_to_reload
 		if ammo >= gun.mag_size:
 			reloading = false
+			reload_timer = 0
 		
 	if Options.fps:
 		fps.text = "%s FPS" % Engine.get_frames_per_second()
@@ -248,7 +246,7 @@ func _physics_process(delta: float) -> void:
 
 # custom functions
 
-@rpc("call_local")
+
 func shoot():
 	if multiplayer.is_server():
 		return
@@ -262,18 +260,25 @@ func shoot():
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * gun.recoil
 	velocity.y += coeff_y * gun.recoil
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * gun.recoil
-	for i in range(0, gun.bullets_per_shot):
+	for i in range(gun.bullets_per_shot):
 		if ammo > 0:
+			spawn_nullet.rpc()
 			ammo -= 1
-			var bullet = BULLET.instantiate()
-			bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
-			bullet.rotation = raycast.global_rotation
-			bullet.damage = gun.damage
-			bullet.knockback = gun.knockback
-			bullet.shooter = self
-			bullet.start_speed = gun.muzzle_velocity
-			bullet.spread = get_spread_dir(raycast.get_global_transform_interpolated().basis, gun.spread)
-			Global.firin.emit(bullet)
+	
+	
+@rpc("call_local")
+func spawn_nullet():
+	if multiplayer.is_server():
+		return
+	var bullet = BULLET.instantiate()
+	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
+	bullet.rotation = raycast.global_rotation
+	bullet.damage = gun.damage
+	bullet.knockback = gun.knockback
+	bullet.shooter = self
+	bullet.start_speed = gun.muzzle_velocity
+	bullet.spread = gun.spread
+	Global.firin.emit(bullet)
 
 func check_if_can_move():
 	if inOptions:
@@ -292,13 +297,3 @@ func leave():
 	if not is_multiplayer_authority():
 		return
 	Networking.remove_player(self)
-	
-func get_spread_dir(camera_global_basis : Basis, spread_degrees: float) -> Vector3:
-	var twist : float = randf_range(0, TAU)
-	var axis := Vector3(cos(twist), sin(twist), 0)
-  
-	var angle := (1.0 - sqrt(1.0 - sqrt(randf()))) * deg_to_rad(spread_degrees) # Superior distribution
-  #var angle := sqrt(randf()) * spread_degrees # Uniform spread, use instead if prefered
-  
-  # Negative because cameras in Godot point backwards
-	return -camera_global_basis.z.rotated(camera_global_basis * axis, angle)
