@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2wdygwbi2mlj"]
+[gd_scene load_steps=9 format=3 uid="uid://2wdygwbi2mlj"]
 
 [ext_resource type="Script" uid="uid://cfvs8rjqs5hgp" path="res://scripts/substates/SubState-OptionsMenu.gd" id="1_1axyh"]
 [ext_resource type="FontFile" uid="uid://fbem0s06kkud" path="res://assets/font/Comic Sans MS.ttf" id="1_nd8ba"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d02c5eh6ol7hj" path="res://scenes/optionsshit/OptionsMenu-CheckBox.tscn" id="3_2xwod"]
 [ext_resource type="Texture2D" uid="uid://dnvg50dcj6q2l" path="res://assets/sprites/hud/quit.png" id="4_of8pa"]
 [ext_resource type="Script" uid="uid://dbk7lkvtavlbh" path="res://scripts/optionsshit/OptionsMenu-CheckBox-ShootingTimer.gd" id="5_w4r6x"]
+[ext_resource type="Script" uid="uid://cst4u15oglw1s" path="res://scripts/optionsshit/OptionsMenu-Hitmaker_SFX.gd" id="6_4j5xy"]
 
 [sub_resource type="Theme" id="Theme_yunyi"]
 default_font = ExtResource("1_nd8ba")
@@ -51,10 +52,11 @@ anchor_left = 0.01
 anchor_top = 0.06
 anchor_right = 0.99
 anchor_bottom = 0.98
-current_tab = 0
+current_tab = 3
 clip_tabs = false
 
 [node name="Gameplay" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -128,6 +130,48 @@ theme_override_constants/separation = 20
 layout_mode = 2
 tooltip_text = "If on, adds an FPS counter at the top left of the screen"
 Property = "FPS"
+
+[node name="Audio" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio"]
+layout_mode = 0
+offset_top = 9.0
+offset_right = 184.0
+offset_bottom = 969.0
+theme_override_constants/separation = 20
+
+[node name="HitmarkerSFX" type="Panel" parent="TabContainer/Audio/VBoxContainer"]
+custom_minimum_size = Vector2(450, 75)
+layout_mode = 2
+script = ExtResource("6_4j5xy")
+
+[node name="HitmarkerSFXList" type="ItemList" parent="TabContainer/Audio/VBoxContainer/HitmarkerSFX"]
+layout_mode = 0
+offset_left = 1.2
+offset_top = 23.8
+offset_right = 146.2
+offset_bottom = 63.8
+allow_search = false
+auto_width = true
+item_count = 2
+fixed_column_width = 125
+item_0/text = "GODSE style"
+item_1/text = "meme style"
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/HitmarkerSFX"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Hitmarker Sound effect"
+
+[node name="Label2" type="Label" parent="TabContainer/Audio/VBoxContainer/HitmarkerSFX"]
+offset_left = 160.2
+offset_top = 31.8
+offset_right = 342.2
+offset_bottom = 54.8
+text = "Selected Item:"
 
 [node name="Quit" type="Button" parent="."]
 visible = false

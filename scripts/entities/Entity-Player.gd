@@ -83,6 +83,7 @@ func _ready():
 	
 	DEFAULT_GUN_POS = truegunpos.position # gas station sushi
 	optionsMenu.change_quit_visibility()
+	Options.changed.connect(update_options)
 	
 	Global.leaving.connect(leave)
 	
@@ -227,12 +228,6 @@ func _physics_process(delta: float) -> void:
 			reloading = false
 			reload_timer = 0
 		
-	if Options.fps:
-		fps.text = "%s FPS" % Engine.get_frames_per_second()
-		fps.visible = true
-	else:
-		fps.visible = false
-		
 	Global.Health += regen
 	
 	if Global.Health > Global.Max_Health:
@@ -241,6 +236,7 @@ func _physics_process(delta: float) -> void:
 	if shoot_timer > 0:
 		shoot_timer -= delta
 	
+	fps.text = "%s FPS" % Engine.get_frames_per_second()
 	# p h y s i c s
 	move_and_slide()
 
@@ -266,7 +262,7 @@ func shoot():
 			ammo -= 1
 	
 @rpc("any_peer", "call_local")
-func spawn_nullet(rand1: float, rand2: float):
+func spawn_nullet(rand1: float, rand2: float): # you do not want to know how much time it fucking took me to figure out bullet spread
 	if multiplayer.is_server():
 		return
 	var bullet = BULLET.instantiate()
@@ -296,3 +292,11 @@ func leave():
 	if not is_multiplayer_authority():
 		return
 	Networking.remove_player(self)
+	
+func update_options():
+	if Options.fps:
+		fps.visible = true
+	else:
+		fps.visible = false
+	
+	print(hitmarker.stream)

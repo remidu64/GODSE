@@ -1,6 +1,6 @@
 extends Node
 
-var gameVersion = "0.9"
+var gameVersion = "0.12"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -8,11 +8,13 @@ var fov = 75
 var shadows = true
 var fps = false
 var fullscreen = false
-var shooting_bar = true
+var shooting_bar = false
+var hitmarker_sound = 0
 
 func _ready() -> void:
 	if DisplayServer.get_name() == "headless":
 		return
+		
 	if not SaveData.load_from_config("FOV"):
 		SaveData.save_to_config("FOV", fov)
 	else:
@@ -37,10 +39,16 @@ func _ready() -> void:
 		SaveData.save_to_config("Fullscreen", fullscreen)
 	else:
 		fullscreen = SaveData.load_from_config("Fullscreen")
+		
 	if not SaveData.load_from_config("ShootingBar"):
 		SaveData.save_to_config("ShootingBar", shooting_bar)
 	else:
 		fullscreen = SaveData.load_from_config("ShootingBar")
+		
+	if not SaveData.load_from_config("HitmarkerSound"):
+		SaveData.save_to_config("HitmarkerSound", hitmarker_sound)
+	else:
+		fullscreen = SaveData.load_from_config("HitmarkerSound")
 
 func get_option(str:String):
 	match str:
@@ -56,6 +64,8 @@ func get_option(str:String):
 			return fullscreen
 		"ShootingBar":
 			return shooting_bar
+		"HitmarkerSound":
+			return hitmarker_sound
 
 func set_option(str:String, value):
 	match str:
@@ -77,5 +87,8 @@ func set_option(str:String, value):
 		"ShootingBar":
 			shooting_bar = bool(value)
 			SaveData.save_to_config("ShootingBar", bool(value))
+		"HitmarkerSound":
+			hitmarker_sound = int(value)
+			SaveData.save_to_config("HitmarkerSound", int(value))
 			
 	changed.emit()
