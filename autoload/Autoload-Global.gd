@@ -15,10 +15,7 @@ signal leaving
 # player node, set in Entity-Player.gd
 var Player = null
 var Health = 100.0
-var Max_Health = 100.0
-
-# server node
-@export var Server = 5
+var Max_Health = 100.0 
 
 
 # name for the player
@@ -37,8 +34,7 @@ func _physics_process(delta: float) -> void:
 		Ammo.currentammo = Player.ammo
 		Ammo.maxammo = Player.gun.mag_size
 		Reloading.hp = Player.reload_timer
-		Reloading.max_hp = Player.gun.time_to_reload
-		print("player -> %s, server -> %s" % [Player, Server])		
+		Reloading.max_hp = Player.gun.time_to_reload	
 		
 func set_player_name():
 	Player.player_name = Name

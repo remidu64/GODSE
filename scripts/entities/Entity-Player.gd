@@ -265,21 +265,9 @@ func shoot():
 			spawn_nullet.rpc()
 			ammo -= 1
 	
-	
-@rpc("call_local")
+@rpc("call_remote")
 func spawn_nullet():
-	if multiplayer.is_server():
-		return
-	var bullet = BULLET.instantiate()
-	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
-	bullet.rotation = raycast.global_rotation
-	bullet.damage = gun.damage
-	bullet.knockback = gun.knockback
-	bullet.shooter = self
-	print(bullet.shooter.player_name)
-	bullet.start_speed = gun.muzzle_velocity
-	bullet.spread = gun.spread
-	Global.firin.emit(bullet)
+	velocity += Vector3(0, 10, 0)
 
 func check_if_can_move():
 	if inOptions:

@@ -33,6 +33,7 @@ func remove_player(id):
 		Global.HUD.visible = false
 		get_tree().change_scene_to_file("res://scenes/State-MainMenuState.tscn")
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
 	
 func remove_server():
 	remove_server_request.emit()
