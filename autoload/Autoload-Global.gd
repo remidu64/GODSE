@@ -4,7 +4,7 @@ signal play_state_loaded
 signal player_loaded
 signal firin(projectile)
 signal hit(shooter, victim, damage)
-signal leaving 
+signal leaving
 
 @onready var HUD: Control = $Game_HUD
 @onready var Health_Bar: Control = $Game_HUD/HealthBar
@@ -16,6 +16,10 @@ signal leaving
 var Player = null
 var Health = 100.0
 var Max_Health = 100.0
+
+# server node
+@export var Server = 5
+
 
 # name for the player
 var Name = "john GODSE"
@@ -34,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		Ammo.maxammo = Player.gun.mag_size
 		Reloading.hp = Player.reload_timer
 		Reloading.max_hp = Player.gun.time_to_reload
-		
+		print("player -> %s, server -> %s" % [Player, Server])		
 		
 func set_player_name():
 	Player.player_name = Name

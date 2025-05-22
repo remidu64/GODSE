@@ -9,7 +9,7 @@ var spread = 0
 func _ready() -> void:
 	set_contact_monitor(true)
 	set_max_contacts_reported(10)
-	apply_impulse(spread * start_speed)
+	apply_impulse(Vector3(0, 0, 1) * start_speed)
 	
 func _physics_process(delta: float) -> void:
 	if position.y < -100:

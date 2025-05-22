@@ -276,6 +276,7 @@ func spawn_nullet():
 	bullet.damage = gun.damage
 	bullet.knockback = gun.knockback
 	bullet.shooter = self
+	print(bullet.shooter.player_name)
 	bullet.start_speed = gun.muzzle_velocity
 	bullet.spread = gun.spread
 	Global.firin.emit(bullet)

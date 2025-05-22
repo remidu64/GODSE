@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1vifmptrwkrj"]
+[gd_scene load_steps=7 format=3 uid="uid://c1vifmptrwkrj"]
 
 [ext_resource type="Script" uid="uid://dawe4pct7b310" path="res://autoload/Autoload-Global.gd" id="1_f6n0l"]
 [ext_resource type="PackedScene" uid="uid://c443cj1h2qx0p" path="res://scenes/hud/HUD-Ammo.tscn" id="2_6y155"]
@@ -6,8 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://c8cs7nl4do4h8" path="res://scenes/hud/HUD-Shooting_Timer.tscn" id="3_nkmmw"]
 [ext_resource type="PackedScene" uid="uid://bnmiywmi5xihs" path="res://scenes/hud/HUD-Reload_Timer.tscn" id="5_4qm0q"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4qm0q"]
+properties/0/path = NodePath(".:Server")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Global" type="Node"]
 script = ExtResource("1_f6n0l")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4qm0q")
 
 [node name="Game_HUD" type="Control" parent="."]
 visible = false
