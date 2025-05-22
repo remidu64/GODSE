@@ -262,12 +262,22 @@ func shoot():
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * gun.recoil
 	for i in range(gun.bullets_per_shot):
 		if ammo > 0:
-			spawn_nullet.rpc()
+			spawn_nullet.rpc(randf_range(0, TAU), randf())
 			ammo -= 1
 	
-@rpc("call_remote")
-func spawn_nullet():
-	velocity += Vector3(0, 10, 0)
+@rpc("any_peer", "call_local")
+func spawn_nullet(rand1: float, rand2: float):
+	if multiplayer.is_server():
+		return
+	var bullet = BULLET.instantiate()
+	bullet.position = raycast.global_position - (raycast.get_global_transform_interpolated().basis.z * 2)
+	bullet.rotation = raycast.global_rotation
+	bullet.damage = gun.damage
+	bullet.knockback = gun.knockback
+	bullet.shooter = self
+	bullet.spread = UsefulFunctions.get_spread_dir(bullet.basis, gun.spread, rand1, rand2)
+	bullet.start_speed = gun.muzzle_velocity
+	Global.firin.emit(bullet)
 
 func check_if_can_move():
 	if inOptions:

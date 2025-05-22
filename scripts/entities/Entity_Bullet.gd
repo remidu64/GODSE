@@ -3,13 +3,13 @@ extends RigidBody3D
 var damage = 0
 var knockback = 0
 var start_speed = 0
-var spread = 0
-@export var shooter = 5
+var spread = Vector3(0, 0, 0)
+@export var shooter = null
 
 func _ready() -> void:
 	set_contact_monitor(true)
 	set_max_contacts_reported(10)
-	apply_impulse(Vector3(0, 0, 1) * start_speed)
+	apply_impulse(spread * start_speed)
 	
 func _physics_process(delta: float) -> void:
 	if position.y < -100:
