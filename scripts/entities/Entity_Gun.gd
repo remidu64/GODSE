@@ -15,6 +15,7 @@ var mag_size
 var time_to_reload
 var ammo_per_reload
 var rps
+var visual_recoil
 
 func _ready() -> void:
 	var roughcut = ROUGHCUT.instantiate()
@@ -32,3 +33,4 @@ func _ready() -> void:
 	time_to_reload = roughcut.time_to_reload
 	ammo_per_reload = roughcut.ammo_per_reload
 	rps = roughcut.rpm/60
+	visual_recoil = roughcut.visual_recoil

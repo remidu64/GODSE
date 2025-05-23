@@ -31,6 +31,7 @@ var shoot_timer: float = 0
 var reload_timer: float = 0
 var reloading: bool = false
 var ammo: int = 0
+var missing_shots: float = 0
 
 # synced variables
 @export var health: float = 100.0
@@ -86,6 +87,7 @@ func _ready():
 	DEFAULT_GUN_POS = truegunpos.position # gas station sushi
 	optionsMenu.change_quit_visibility()
 	Options.changed.connect(update_options)
+	update_options()
 	
 	Global.leaving.connect(leave)
 	
@@ -204,15 +206,16 @@ func _physics_process(delta: float) -> void:
 			velocity.z += ACCELERATION * direction.z * 0.05
 			
 			# shooting
-		if (Input.is_action_just_pressed("shoot") or (Input.is_action_pressed("shoot") and gun.full_auto)) and shoot_timer <= 0:
-			if ammo > 0:
+		if Input.is_action_pressed("shoot") and gun.full_auto:
+			missing_shots += gun.rps/60
+			while ammo > 0 and missing_shots >= 1:
 				reloading = false
 				shoot()
-				shoot_timer = 1/gun.rps
+				missing_shots -= 1
 				if ammo <= 0:
 					reloading = true
 					reload_timer = gun.time_to_reload
-			elif reload_timer <= 0 and not reloading:
+			if reload_timer <= 0 and not reloading:
 				reloading = true
 				reload_timer = gun.time_to_reload
 			
@@ -222,6 +225,7 @@ func _physics_process(delta: float) -> void:
 			
 			
 	if reloading:
+		missing_shots = 0
 		reload_timer -= delta
 		if reload_timer <= 0:
 			ammo += gun.ammo_per_reload
@@ -229,6 +233,7 @@ func _physics_process(delta: float) -> void:
 		if ammo >= gun.mag_size:
 			reloading = false
 			reload_timer = 0
+			ammo = gun.mag_size
 		
 	Global.Health += regen
 	
@@ -252,9 +257,9 @@ func shoot():
 	var RECOIL_MULT = 1
 	if adsing:
 		RECOIL_MULT = 0.05
-	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), randf_range(0.2, 0.4), randf_range(0.25, 0.75))*RECOIL_MULT)
-	gun.transform = gun.transform.rotated(Vector3.RIGHT, randf_range(TAU/16, TAU/12)*RECOIL_MULT) 
-	gun.transform = gun.transform.rotated(Vector3.UP, randf_range(-TAU/22, TAU/22)*RECOIL_MULT)
+	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), randf_range(0.2, 0.4), randf_range(0.25, 0.75))*RECOIL_MULT*0.1)
+	gun.transform = gun.transform.rotated(Vector3.RIGHT, randf_range(TAU/16, TAU/12)*RECOIL_MULT*0.25)
+	gun.transform = gun.transform.rotated(Vector3.UP, randf_range(-TAU/22, TAU/22)*RECOIL_MULT*0.25)
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * gun.recoil
 	velocity.y += coeff_y * gun.recoil
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * gun.recoil
