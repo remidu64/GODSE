@@ -3,7 +3,6 @@ extends CheckBox
 @export var Property:String
 
 func _ready():
-	print(Options.get_option(Property), Property)
 	button_pressed = Options.get_option(Property)
 
 func _process(delta: float) -> void:

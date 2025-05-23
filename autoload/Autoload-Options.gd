@@ -14,41 +14,41 @@ var hitmarker_sound = 0
 func _ready() -> void:
 	if DisplayServer.get_name() == "headless":
 		return
-		
-	if not SaveData.load_from_config("FOV"):
+	
+	if SaveData.load_from_config("FOV") == null:
 		SaveData.save_to_config("FOV", fov)
 	else:
 		fov = SaveData.load_from_config("FOV")
 		
-	if not SaveData.load_from_config("Sensitivity"):
+	if SaveData.load_from_config("Sensitivity") == null:
 		SaveData.save_to_config("Sensitivity", sensitivity)
 	else:
 		sensitivity = SaveData.load_from_config("Sensitivity")
 		
-	if not SaveData.load_from_config("Shadows"):
+	if SaveData.load_from_config("Shadows") == null:
 		SaveData.save_to_config("Shadows", shadows)
 	else:
 		shadows = SaveData.load_from_config("Shadows")
 		
-	if not SaveData.load_from_config("FPS"):
+	if SaveData.load_from_config("FPS") == null:
 		SaveData.save_to_config("FPS", fps)
 	else:
 		fps = SaveData.load_from_config("FPS")
 		
-	if not SaveData.load_from_config("Fullscreen"):
+	if SaveData.load_from_config("Fullscreen") == null:
 		SaveData.save_to_config("Fullscreen", fullscreen)
 	else:
 		fullscreen = SaveData.load_from_config("Fullscreen")
 		
-	if not SaveData.load_from_config("ShootingBar"):
+	if SaveData.load_from_config("ShootingBar") == null:
 		SaveData.save_to_config("ShootingBar", shooting_bar)
 	else:
-		fullscreen = SaveData.load_from_config("ShootingBar")
+		shooting_bar = SaveData.load_from_config("ShootingBar")
 		
-	if not SaveData.load_from_config("HitmarkerSound"):
+	if SaveData.load_from_config("HitmarkerSound") == null:
 		SaveData.save_to_config("HitmarkerSound", hitmarker_sound)
 	else:
-		fullscreen = SaveData.load_from_config("HitmarkerSound")
+		hitmarker_sound = SaveData.load_from_config("HitmarkerSound")
 
 func get_option(str:String):
 	match str:

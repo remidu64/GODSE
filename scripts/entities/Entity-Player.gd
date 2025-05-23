@@ -54,6 +54,8 @@ var DEFAULT_GUN_POS = null
 
 const SUB_STATE_OPTIONS_MENU = preload("res://scenes/substates/SubState-OptionsMenu.tscn")
 const BULLET = preload("res://scenes/entities/Entity-Bullet.tscn")
+const GODSE_HIT_SOUND = preload("res://assets/sounds/hitmarkers/godse_hitmarker_v1.ogg")
+const MEME_HIT_SOUND = preload("res://assets/sounds/hitmarkers/meme_hitmarker.ogg")
 
 # built in godot functions
 
@@ -298,5 +300,8 @@ func update_options():
 		fps.visible = true
 	else:
 		fps.visible = false
-	
-	print(hitmarker.stream)
+	match Options.get_option("HitmarkerSound"):
+		0:
+			hitmarker.stream = GODSE_HIT_SOUND
+		1:
+			hitmarker.stream = MEME_HIT_SOUND
