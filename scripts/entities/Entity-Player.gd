@@ -218,6 +218,18 @@ func _physics_process(delta: float) -> void:
 			if reload_timer <= 0 and not reloading:
 				reloading = true
 				reload_timer = gun.time_to_reload
+				
+		if Input.is_action_just_pressed("shoot") and not gun.full_auto and shoot_timer <= 0:
+			if ammo > 0:
+				reloading = false
+				shoot()
+				shoot_timer = 1/gun.rps
+				if ammo <= 0:
+					reloading = true
+					reload_timer = gun.time_to_reload
+			if reload_timer <= 0 and not reloading:
+				reloading = true
+				reload_timer = gun.time_to_reload
 			
 		if Input.is_action_just_pressed("reload"):
 			reload_timer = gun.time_to_reload
@@ -257,9 +269,9 @@ func shoot():
 	var RECOIL_MULT = 1
 	if adsing:
 		RECOIL_MULT = 0.05
-	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), randf_range(0.2, 0.4), randf_range(0.25, 0.75))*RECOIL_MULT*0.1)
-	gun.transform = gun.transform.rotated(Vector3.RIGHT, randf_range(TAU/16, TAU/12)*RECOIL_MULT*0.25)
-	gun.transform = gun.transform.rotated(Vector3.UP, randf_range(-TAU/22, TAU/22)*RECOIL_MULT*0.25)
+	gun.transform = gun.transform.translated(Vector3(randf_range(-0.1, 0.1), randf_range(0.2, 0.4), randf_range(0.25, 0.75))*RECOIL_MULT*gun.visual_recoil)
+	gun.transform = gun.transform.rotated(Vector3.RIGHT, randf_range(TAU/16, TAU/12)*RECOIL_MULT*gun.visual_recoil)
+	gun.transform = gun.transform.rotated(Vector3.UP, randf_range(-TAU/22, TAU/22)*RECOIL_MULT*gun.visual_recoil)
 	velocity.x += -(abs(coeff_y)-1) * sin(raycast.global_rotation.y) * gun.recoil
 	velocity.y += coeff_y * gun.recoil
 	velocity.z += -(abs(coeff_y)-1) * cos(raycast.global_rotation.y) * gun.recoil
