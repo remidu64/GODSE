@@ -2,14 +2,14 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crylu7fbml3u8"
+uid="uid://c8gsjrylmct5s"
 path.s3tc="res://.godot/imported/new godse map_baked owo.png-ad6f1251ae4ba37b8c33fe7174c67360.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "9cedf94b3435e6b46218c6ebbead31c3"
+"md5": "0cfb59638727de26f270f80ecfcf734c"
 }
 
 [deps]
