@@ -5,7 +5,6 @@ signal changed()
 
 var sensitivity = 0.5
 var fov = 75
-var shadows = true
 var fps = false
 var fullscreen = false
 var shooting_bar = false
@@ -24,11 +23,6 @@ func _ready() -> void:
 		SaveData.save_to_config("Sensitivity", sensitivity)
 	else:
 		sensitivity = SaveData.load_from_config("Sensitivity")
-		
-	if SaveData.load_from_config("Shadows") == null:
-		SaveData.save_to_config("Shadows", shadows)
-	else:
-		shadows = SaveData.load_from_config("Shadows")
 		
 	if SaveData.load_from_config("FPS") == null:
 		SaveData.save_to_config("FPS", fps)
@@ -56,8 +50,6 @@ func get_option(str:String):
 			return fov
 		"Sensitivity":
 			return sensitivity
-		"Shadows":
-			return shadows
 		"FPS":
 			return fps
 		"Fullscreen":
@@ -75,9 +67,6 @@ func set_option(str:String, value):
 		"Sensitivity":
 			sensitivity = float(value)
 			SaveData.save_to_config("Sensitivity", float(value))
-		"Shadows":
-			shadows = bool(value)
-			SaveData.save_to_config("Shadows", bool(value))
 		"FPS":
 			fps = bool(value)
 			SaveData.save_to_config("FPS", bool(value))

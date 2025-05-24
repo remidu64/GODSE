@@ -101,13 +101,6 @@ offset_right = 184.0
 offset_bottom = 969.0
 theme_override_constants/separation = 20
 
-[node name="Shadows" parent="TabContainer/Graphics/VBoxContainer" instance=ExtResource("3_2xwod")]
-layout_mode = 2
-tooltip_text = "if on, real time shadows will, you know, do the real time shadow things
-
-fucks up performance, disabling it makes the game look like hot garbage and should probably be considered cheating since the game is basically full bright (until we add baked lighting)"
-Property = "Shadows"
-
 [node name="Fullscreen" parent="TabContainer/Graphics/VBoxContainer" instance=ExtResource("3_2xwod")]
 layout_mode = 2
 tooltip_text = "If on, simply sets the game to fullscreen"
