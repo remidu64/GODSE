@@ -22,7 +22,9 @@ environment = SubResource("Environment_l02w5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
+light_color = Color(0.707967, 0.707967, 0.707967, 1)
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 2000.0
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://2t0235x02uih")

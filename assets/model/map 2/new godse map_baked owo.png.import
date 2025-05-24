@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbkwmd1720xhb"
-path.s3tc="res://.godot/imported/new godse map_map texture.png-940cd63bff3e4ef2fae0e5d100ab13be.s3tc.ctex"
+uid="uid://crylu7fbml3u8"
+path.s3tc="res://.godot/imported/new godse map_baked owo.png-ad6f1251ae4ba37b8c33fe7174c67360.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "0bfb2283ee0f3bb3cefdec42938d3d67"
+"md5": "9cedf94b3435e6b46218c6ebbead31c3"
 }
 
 [deps]
 
-source_file="res://assets/model/map 2/new godse map_map texture.png"
-dest_files=["res://.godot/imported/new godse map_map texture.png-940cd63bff3e4ef2fae0e5d100ab13be.s3tc.ctex"]
+source_file="res://assets/model/map 2/new godse map_baked owo.png"
+dest_files=["res://.godot/imported/new godse map_baked owo.png-ad6f1251ae4ba37b8c33fe7174c67360.s3tc.ctex"]
 
 [params]
 

@@ -33,7 +33,6 @@ func add_server(id):
 	add_child(server_dummy)
 
 func toggle_shadows():
-	SunLight.shadow_enabled = Options.shadows
 	if Options.fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
