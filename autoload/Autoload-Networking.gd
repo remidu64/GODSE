@@ -8,7 +8,7 @@ signal remove_server_request
 var enetPeer = null
 var ip = "localhost"
 
-const PORT = 1337
+const PORT = 19132
 
 func _ready() -> void:
 	multiplayer.peer_disconnected.connect(remove_player)
